@@ -11,3 +11,4 @@ Sellest tuleneb küsimus et,
 Mittu korda te arvate et, õpilane vaatab tunniplaani päevas?
 
 # Mihkel Hain ja Hannes Malter
+## Meie Kaks :)
