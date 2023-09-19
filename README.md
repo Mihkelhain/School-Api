@@ -9,3 +9,5 @@ et, kontole tuua tunniplaan ja tunniplaani muudatused.
 See tähendab et, sait teeb lihtsaks õpilastel vaadata oma klassi tunniplaani ja tunniplaani muudatusi.
 Sellest tuleneb küsimus et,
 Mittu korda te arvate et, õpilane vaatab tunniplaani päevas?
+
+# Mihkel Hain ja Hannes Malter
