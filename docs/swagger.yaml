@@ -1,0 +1,85 @@
+openapi: 3.0.2
+info:
+    title: Tarpe21_school_api
+    version: 1.0.0
+paths:
+    /users:
+        get:
+            tags:
+                - Users
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: string
+                            examples:
+                                Get all Users:
+                                    value: |-
+                                        [
+                                            return {"id":g.id,"name":g.id,"group":g.id}
+                                        ]
+                    description: |
+                        Successful Get
+            summary: GET Users
+        post:
+            requestBody: {}
+            responses:
+                '200': {}
+    '/users/{id}':
+        summary: Handle users by its ID
+        get:
+            tags:
+                - users
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: string
+                            examples:
+                                One User:
+                                    value: '{id:3,name:"martin",password:''b_phi<ibh'',group:"TARpe21"},'
+                    description: |+
+                        Success
+
+                '404':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                            examples:
+                                error:
+                                    value:
+                                        ' error': User not found
+                    description: |
+                        Couldnt find a user
+        parameters:
+            -
+                examples:
+                    john marston:
+                        value: '4'
+                name: id
+                description: |
+                    Get all users by id
+                schema:
+                    type: integer
+                in: path
+                required: true
+    /Schools: {}
+    '/Schools/{id}': {}
+components:
+    schemas:
+        Error:
+            title: Root Type for Error
+            description: ''
+            type: object
+            properties:
+                ' error':
+                    type: string
+            example:
+                ' error': error message

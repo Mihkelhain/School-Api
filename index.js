@@ -1,10 +1,21 @@
-const app = require('express')()
-const port = 8080
-const swaggerui = require('swagger-ui-express')
-const swaggerDocument = require('./Docs/swagger.json')
+require("dotenv").config()
+const express = require("express")
+const app = express()
+const port = process.env.PORT
+const swaggerui = require("swagger-ui-express")
+const yamljs = require("yamljs")
+const swaggerDocument = yamljs.load("./docs/swagger.yaml")
 
-app.use('/Docs'. swaggerui.Serve, swaggerui.setup(swaggerDocument))
+
+app.use(express.json())
+app.use("/docs", swaggerui.serve, swaggerui.setup(swaggerDocument))
+
+require("./routes/userRoutes")(app)
+require("./routes/SchoolRoutes")(app)
 
 app.listen(port, () => {
-    console.log(`API up at: Hppt://Localhost:${port}`)
+    require("./db").sync()
+        .then(console.log("Synchronized"))
+        .catch((error) => console.log("Error:", error))
+    console.log(`API up at: http://localhost:${port}/docs`);
 })
