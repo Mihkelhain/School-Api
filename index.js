@@ -32,5 +32,8 @@ app.delete('/Timetables/:id',(req,res) => {
 
 
 app.listen(8080, () => {
+    require("./db").sync()
+        .then(console.log("Syncrnized"))
+        .catch((error) => console.log("Erorr:", error))
     console.log(`API up at: http://localhost:8080`)
 })

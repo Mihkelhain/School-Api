@@ -1,13 +1,11 @@
 const Timetables = require("../Timetables/data")
 //create
-exports.createNew = (req,res) => {
+exports.createNew = async (req,res) => {
     if (!req.body.Group || !req.body.Lesson) {
         return res.status(400).send({error:"One or both paramaters are not filled or the wrong type of data"})
     }
-    const createdTimetables = Timetables.create({
-    
-        Group: req.body.Group,
-        Lesson:req.body,Lesson
+    const createdTimetables = await Timetables.create(req.body, {
+        fields: ["Lesson", "Lenght"]
     })
     res.status(201)
         .location(`${getBaseurl(req)}/Timetables/${createdTimetables.id}`)
@@ -19,8 +17,9 @@ exports.createNew = (req,res) => {
 }
 
 //read
-exports.getAll = (req, res) => {
-    res.send(Timetables.getAll())
+exports.getAll = async (req, res) => {
+    const result = await games.findAll()
+    res.send(JSON.stringify(result))
 }
 
 exports.getById = (req, res) => {
