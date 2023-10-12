@@ -1,43 +1,52 @@
-const Timetables = require("../Timetables/data")
-//create
-exports.createNew = async (req,res) => {
-    if (!req.body.Group || !req.body.Lesson) {
-        return res.status(400).send({error:"One or both paramaters are not filled or the wrong type of data"})
+const { db } = require("../db")
+const Timetables = db.Timetables
+const { getBaseurl } = require("./helpers")
+
+// CREATE
+exports.createNew = async (req, res) => {
+    if (!req.body.lesson || !req.body.lenght) {
+        return res.status(400).send({ error: "One or all required parameters are missing" })
     }
     const createdTimetables = await Timetables.create(req.body, {
         fields: ["Lesson", "Lenght"]
     })
     res.status(201)
         .location(`${getBaseurl(req)}/Timetables/${createdTimetables.id}`)
-        .send(createdTimetables)
-    function getBaseurl(request) {
-        return request.connection && request.connection.encrypted ? "https" : "http" + "://" + request.headers.host
-
-    }
+        .json(createdTimetables)
 }
-
-//read
+// READ
 exports.getAll = async (req, res) => {
-    const result = await games.findAll()
-    res.send(JSON.stringify(result))
+    const result = await Timetables.findAll({ attributes: ["id", "name"] })
+    res.json(result)
 }
-
-exports.getById = (req, res) => {
-    const foundthing = Timetables.getById(req.params.id)
-    if (foundthing == undefined)
-     {
-        return res.status(404).send({error:"not found"})
+exports.getById = async (req, res) => {
+    const foundTimetables = await Timetables.findByPk(req.params.id)
+    if (foundTimetables === null) {
+        return res.status(404).send({ error: `Timetable not found` })
     }
-    res.send(foundthing)
+    res.json(foundTimetables)
 }
-//update
-exports.editById = (req,res) =>  {
-
+// UPDATE
+exports.editById = async (req, res) => {
+    console.log("Update:", req.params, req.body);
+    const updateResult = await Timetables.update({ ...req.body }, {
+        where: { id: req.params.id },
+        fields: ["Lesson", "Lenght"]
+    })
+    if (updateResult[0] == 0) {
+        return res.status(404).send({ "error": "Timetable not found" })
+    }
+    res.status(204)
+        .location(`${getBaseurl(req)}/Timetables/${req.params.id}`)
+        .send()
 }
-//delete
-exports.deleteById = (req,res) => {
-    if (Timetables.delete(req.params-id) === "undefined") {
-        return res.status(400).send({error:"The user is not found"})
+// DELETE
+exports.deleteById = async (req, res) => {
+    const deletedAmount = await Timetables.destroy({
+        where: { id: req.params.id }
+    })
+    if (deletedAmount === 0) {
+        return res.status(404).send({ error: "Timetable not found" })
     }
     res.status(204).send()
 }

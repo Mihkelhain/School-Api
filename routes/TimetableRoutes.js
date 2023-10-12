@@ -1,7 +1,7 @@
-const TimetablesController = require(".../controllers/TimetablesController.js")
+const TimetablesController = require("../controllers/TimetablesController.js")
 
 module.exports = (app) =>{
-    app.route("/usersController")
+    app.route("/TimetablesController")
     .get(TimetablesController.getALL)
     .post(TimetablesController.createNew) //create
     .post(TimetablesController.createSchool)
