@@ -6,24 +6,31 @@ let users = [
 ]
 
 exports.getAll = () => {
-    return users.map(g=> {return {"id":g.id,"name":g.name,"group":g.group}})
+    return data.map(g => { return { "id": g.id, "name": g.name , "group": g.group} })
 }
-
 exports.getById = (id) => {
     return data.find((thing) => thing.id == parseInt(id))
 }
-
 exports.create = (newUser) => {
-    const newId = Math.max(...data.map((thing) => thing.id)) + 1 
+    const newId = Math.max(...data.map((thing) => thing.id)) + 1
     newUser.id = newId
-    data.pushnewUser
+    data.push(newUser)
     return newUser
 }
+exports.edit = (modifiedUser) => {
+    var toBeUpdated = this.getById(modifiedUser.id)
+    if (toBeUpdated === undefined) {
+        return
+    }
+    updatedUser = { ...toBeUpdated, ...modifiedUser }
+    return updatedUser
+}
 
-exports.delete = (deleteUser) => {
+exports.delete = (id) => {
     var toBeDeleted = this.getById(id)
-    if(toBeDeleted === "undefinded") {return}
-    data = data.filter((e) =>toBeDeleted.id != e.id)
-    return toBeDeleted.id
-    
+    if (toBeDeleted === undefined) {
+        return
+    }
+    data = data.filter((e) => toBeDeleted.id != e.id)
+    return toBeDeleted
 }

@@ -6,16 +6,22 @@ let Schools = [
 ]
 
 exports.getAll = () => {
-    return Schools.map(g=> {return {"id":g.id,"name":g.name,"Director":g.Director}})
+    return data.map(g => { return { "id": g.id, "name": g.name, "Director": g.Director } })
 }
-
 exports.getById = (id) => {
     return data.find((thing) => thing.id == parseInt(id))
 }
-
-exports.create = (NewSchool) => {
-    const newId = Math.max(...data.map((thing) => thing.id)) + 1 
-    NewSchool.id = newId
-    data.push(NewSchool)
-    return NewSchool
+exports.create = (newSchool) => {
+    const newId = Math.max(...data.map((thing) => thing.id)) + 1
+    newSchool.id = newId
+    data.push(newSchool)
+    return newSchool
+}
+exports.delete = (id) => {
+    var toBeDeleted = this.getById(id)
+    if (toBeDeleted === undefined) {
+        return
+    }
+    data = data.filter((e) => toBeDeleted.id != e.id)
+    return toBeDeleted
 }

@@ -1,14 +1,10 @@
-const usersController = require("../controller/usersController.js")
-
-module.exports = (app) =>{
-app.route("/usersController")
-.get(usersController.getALL)
-.post(usersController.createNew) //create
-.post(usersController.createSchool)
-
-app.route("/usersController/:id") 
-
-.get(usersController.getById) // read
-.put(usersController.editById) // post
-.delete(usersController.deleteById) // delete
+const userController = require("../controller/userController.js")
+module.exports = (app) => {
+    app.route("/Users")
+        .get(userController.getAll)
+        .post(userController.createNew)      // Create
+    app.route("/Users/:id")
+        .get(userController.getById)         // Read
+        .put(userController.editById)        // Update
+        .delete(userController.deleteById)   // Delete
 }
