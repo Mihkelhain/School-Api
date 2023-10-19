@@ -17,7 +17,9 @@ try {
 const db = {}
 db.Sequelize = Sequelize
 db.connection = sequelize
-db.Users = require("./models/User")(sequelize, Sequelize)
+db.users = require("./models/User")(sequelize, Sequelize)
+db.schools = require("./models/School")(sequelize, Sequelize)
+
 
 sync = async () => {
     await sequelize.sync({ force: true }) // Erase evevryhting and recreate

@@ -19,7 +19,7 @@ paths:
                                 Get all Users:
                                     value: |-
                                         [
-                                            return {"id":g.id,"name":g.id,"group":g.id}
+                                            return {"id":g.id,"name":g.name,"group":g.group}
                                         ]
                     description: |
                         Successful Get
@@ -70,7 +70,20 @@ paths:
                     type: integer
                 in: path
                 required: true
-    /Schools: {}
+    /Schools:
+        get:
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: string
+                            examples:
+                                Return all schools:
+                                    value: "\t[ return {\"id\":g.id,\"name\":g.name,\"director\":g.director} ]"
+            summary: GET Schools
     '/Schools/{id}': {}
 components:
     schemas:
