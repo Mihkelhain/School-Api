@@ -5,11 +5,11 @@ module.exports = (dbConnection, Sequelize)=>{
             primaryKey: true,
             autoIncrement: true
         },
-        Group: {
+        group: {
             type: Sequelize.STRING,
             allowNull: false
         },
-        Length: {
+        length: {
             type: Sequelize.DECIMAL
         }
     })

@@ -8,11 +8,7 @@ module.exports = (dbConnection, Sequelize, Lesson, Group) => {
             primaryKey: true,
             autoIncrement: true
         },
-        playtime: {
-            type: Sequelize.INTEGER,
-            allowNull: false
-        },
-        GameId: {
+        LessonId: {
             type: Sequelize.INTEGER,
             allowNull: false,
             references: {
@@ -20,7 +16,7 @@ module.exports = (dbConnection, Sequelize, Lesson, Group) => {
                 key: "id"
             }
         },
-        PlayerId: {
+        GroupId: {
             type: Sequelize.INTEGER,
             allowNull: false,
             references: {
