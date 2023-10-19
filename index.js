@@ -19,4 +19,4 @@ app.listen(port, () => {
         .then(console.log("Synchronized"))
         .catch((error) => console.log("Error:", error))
     console.log(`API up at: http://localhost:${port}/docs`);
-})
+}) 
