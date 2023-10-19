@@ -1,11 +1,11 @@
 module.exports = (dbConnection, Sequelize)=>{
-    const Timetable = dbConnection.define("Timetable", {
+    const Group = dbConnection.define("Group", {
         id: {
             type: Sequelize.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
-        Lesson: {
+        Group: {
             type: Sequelize.STRING,
             allowNull: false
         },
@@ -13,5 +13,5 @@ module.exports = (dbConnection, Sequelize)=>{
             type: Sequelize.DECIMAL
         }
     })
-    return Timetable
+    return Group
 }

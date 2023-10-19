@@ -17,7 +17,15 @@ try {
 const db = {}
 db.Sequelize = Sequelize
 db.connection = sequelize
-db.Timetables = require("./models/Timetable")(sequelize, Sequelize)
+db.lessons = require("./models/Lesson")(sequelize, Sequelize)
+db.GroupLessons = require("./models/GroupLessons")(sequelize, Sequelize, db.lessons, db.groups)
+
+db.lessons.belongsToMany(db.groups, {through: db.GroupLessons})
+db.groups.belongsToMany(db.lessons, {through: db.GroupLessons})
+db.lessons.hasMany(db.GroupLessons)
+db.groups.hasMany(db.GroupLessons)
+db.GroupLessons.belongsTo(db.lessons)
+db.GroupLessons.belongsTo(db.groups)
 
 sync = async () => {
     await sequelize.sync({ force: true }) // Erase all and recreate

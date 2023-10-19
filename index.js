@@ -10,7 +10,9 @@ const swaggerDocument = yamljs.load("./docs/swagger.yaml")
 app.use(express.json())
 app.use("/docs", swaggerui.serve, swaggerui.setup(swaggerDocument))
 
-require("./routes/TimetableRoutes")(app)
+require("./routes/LessonRoutes")(app)
+require("./routes/GroupRoutes")(app)
+require("./routes/GroupLessonsRoutes")(app)
 
 app.listen(port, () => {
     require("./db").sync()

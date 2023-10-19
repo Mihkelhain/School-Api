@@ -11,11 +11,11 @@ exports.getAll = () => {
 exports.getById = (id) => {
     return data.find((thing) => thing.id == parseInt(id))
 }
-exports.create = (newTimetable) => {
+exports.create = (newLesson) => {
     const newId = Math.max(...data.map((thing) => thing.id)) + 1
-    newTimetable.id = newId
-    data.push(newTimetable)
-    return newTimetable
+    newLesson.id = newId
+    data.push(newLesson)
+    return newLesson
 }
 exports.delete = (id) => {
     var toBeDeleted = this.getById(id)
