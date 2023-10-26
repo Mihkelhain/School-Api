@@ -3,66 +3,6 @@ info:
     title: Tarpe21_school_api
     version: 1.0.0
 paths:
-    /users:
-        get:
-            tags:
-                - Users
-            responses:
-                '200':
-                    content:
-                        application/json:
-                            schema:
-                                type: array
-                                items:
-                                    $ref: '#/components/schemas/users'
-                            examples:
-                                Get users:
-                                    value: |-
-                                        [
-                                            {
-                                                "id": 64,
-                                                "name": "Maler Kasum",
-                                                "password": "3123"
-                                                "group": "MAlpe21"
-                                            },
-                                            {
-                                                "id": 35,
-                                                "name": "Kasner Milen",
-                                                "password": "12345678910",
-                                                "group": "KASme31"
-                                            }
-                                        ]
-                    description: GET all users
-                '404':
-                    description: Get not found
-                '500':
-                    description: Internal Server error
-            summary: GET Users
-        post:
-            tags:
-                - Users
-            responses:
-                '200':
-                    content:
-                        application/json:
-                            schema:
-                                type: array
-                                items:
-                                    $ref: '#/components/schemas/users'
-                            examples:
-                                Post Users:
-                                    value:
-                                        -
-                                            id: 62
-                                            name: Bebil kasum
-                                            password: 41
-                                            group: MARke21
-                                        -
-                                            id: 97
-                                            name: Klasus Niel
-                                            password: 55
-                                            group: VALem21
-                    description: POST Users
     '/users/{id}':
         summary: Handle users by its ID
         get:
@@ -71,8 +11,8 @@ paths:
             parameters:
                 -
                     examples:
-                        Martin:
-                            value: '3'
+                        Get usersById:
+                            value: '2'
                     name: id
                     description: |
                         Get all users by id
@@ -87,10 +27,24 @@ paths:
                             schema:
                                 type: array
                                 items:
-                                    type: string
+                                    $ref: '#/components/schemas/users'
                             examples:
                                 One User:
-                                    value: '{id:3,name:"martin",password:''b_phi<ibh'',group:"TARpe21"},'
+                                    value: |-
+                                        [
+                                            {
+                                                "id": 2,
+                                                "name": "Maler Kasum",
+                                                "password": "3123"
+                                                "group": "MAlpe21"
+                                            },
+                                            {
+                                                "id": 35,
+                                                "name": "Kasner Milen",
+                                                "password": "12345678910",
+                                                "group": "KASme31"
+                                            }
+                                        ]
                     description: |+
                         Success
 
@@ -105,20 +59,67 @@ paths:
                                         ' error': User not found
                     description: |
                         Couldnt find a user
+            summary: GET UsersById
         put:
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: array
+                            items: {}
+                        examples:
+                            Put Example:
+                                value: |4
+
+                                        {
+                                            "id": 3,
+                                            "name": "Maleri Kasum",
+                                            "password": "3123"
+                                            "group": "MAlpe21"
+                                        },
+            tags:
+                - Users
             parameters:
                 -
                     examples:
-                        john marston:
-                            value: '4'
+                        PUTusersById:
+                            value: '3'
                     name: id
-                    description: |
-                        Get all users by id
+                    description: Put Users By id
                     schema:
                         type: integer
                     in: path
                     required: true
-        delete: {}
+            responses:
+                '200':
+                    content:
+                        application/json: {}
+                    description: |
+                        Updated Users
+            summary: PUT users
+        delete:
+            requestBody: {}
+            tags:
+                - Users
+            parameters:
+                -
+                    examples:
+                        Bob:
+                            value: |
+                                1
+                    name: id
+                    description: Delete Users by id
+                    schema:
+                        type: integer
+                    in: path
+                    required: true
+            responses:
+                '200':
+                    description: Deleted User for the DB
+                '404':
+                    description: |
+                        The User to be Deleted was not found
+            summary: DELETE Users
         parameters:
             -
                 examples:
@@ -149,38 +150,15 @@ paths:
                     description: |
                         GET Schools
             summary: GET Schools
-        put:
-            tags:
-                - School
-            responses:
-                '200':
-                    content:
-                        application/json:
-                            schema:
-                                type: array
-                                items:
-                                    type: string
-                            examples:
-                                Put all schools:
-                                    value: |+
-
-            summary: PUT Schools
         post:
             tags:
                 - School
             summary: POST Schools
-        delete:
-            tags:
-                - School
-            summary: DELETE Schools
     '/Schools/{id}':
         get:
             tags:
                 - School
         put:
-            tags:
-                - School
-        post:
             tags:
                 - School
         delete:
@@ -225,25 +203,13 @@ paths:
                                 $ref: '#/components/schemas/Lessons'
                         examples:
                             Add lessons:
-                                value:
-                                    -
-                                        id: 2
-                                        lessonsStart: some text
-                                        lesson: some text
-                                    -
-                                        id: 58
-                                        lessonsStart: some text
-                                        lesson: some text
-            tags:
-                - Lessons
-            responses:
-                '200':
-                    description: Succssesfuly Post
-                '404':
-                    description: Not found
-            summary: Post lesson
-    '/Lessons/{id}':
-        get:
+                                value: |4-
+
+                                        {
+                                            "id": 92,
+                                            "lessonsStart": "some text",
+                                            "lesson": "some text"
+                                        }
             tags:
                 - Lessons
             responses:
@@ -253,17 +219,52 @@ paths:
                             schema:
                                 type: array
                                 items:
-                                    type: string
+                                    $ref: '#/components/schemas/Lessons'
+                            examples:
+                                Post Lesson:
+                                    value:
+                                        id: 1
+                                        lessonsStart: '9,30'
+                                        lesson: Programming
+                    description: Successful Post
+                '404':
+                    description: Not found
+            summary: Post lesson
+    '/Lessons/{id}':
+        get:
+            tags:
+                - Lessons
+            parameters:
+                -
+                    examples:
+                        Programming:
+                            value: '7'
+                    name: id
+                    description: Get all lessons by id
+                    schema:
+                        type: integer
+                    in: path
+                    required: true
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/Lessons'
                             examples:
                                 ID:
-                                    value: |-
-                                        let data = [
-                                            {id: 1, LessonsStart: '9:30', Lesson:"Programming"},
-                                            {id: 2, LessonsStart: '8.30', Lesson:"Biology"},
-                                            {id: 3, LessonsStart: '12.45', Lesson:"P.E"},
-                                            {id: 4, LessonsStart: '8.30', Lesson:"Math"}
-                                        ]
-                    description: Succssesfuly Get
+                                    value:
+                                        -
+                                            id: 67
+                                            lessonsStart: some text
+                                            lesson: some text
+                                        -
+                                            id: 83
+                                            lessonsStart: some text
+                                            lesson: some text
+                    description: Successful Get
                 '404':
                     description: Could not find Lesson
         parameters:
@@ -307,11 +308,43 @@ paths:
                     description: Server err
             summary: GET groups
         post:
-            requestBody: {}
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: array
+                            items:
+                                $ref: '#/components/schemas/Groups'
+                        examples:
+                            Post Group:
+                                value: |4
+
+                                        {
+                                            "id": 19,
+                                            "name": "some text",
+                                            "studentCount": 47
+                                        }
             tags:
                 - Groups
             responses:
                 '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/Groups'
+                            examples:
+                                Post Group:
+                                    value:
+                                        -
+                                            id: 44
+                                            name: some text
+                                            studentCount: 14
+                                        -
+                                            id: 13
+                                            name: some text
+                                            studentCount: 6
                     description: Successful Post
             summary: POST group
     '/Groups/{id}':
@@ -336,17 +369,18 @@ paths:
                             schema:
                                 type: array
                                 items:
-                                    type: string
+                                    $ref: '#/components/schemas/Groups'
                             examples:
                                 ID:
-                                    value: |-
-                                        let data = [
-                                            { id: 1, name: "Tarpe21", Students: 16 },
-                                            { id: 2, name: "Iot", Students:24  },
-                                            { id: 3, name: "Mvcpe20", Students: 12 },
-                                            { id: 4, name: "Tatge22", Students: 18 },
-                                            { id: 5, name: "SoT", Students: 5 }
-                                        ]
+                                    value:
+                                        -
+                                            id: 90
+                                            name: some text
+                                            studentCount: 60
+                                        -
+                                            id: 36
+                                            name: some text
+                                            studentCount: 32
                     description: Success
                 '404':
                     description: Group not found
@@ -361,6 +395,63 @@ paths:
                     type: integer
                 in: path
                 required: true
+    /users:
+        get:
+            tags:
+                - Users
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/users'
+                            examples:
+                                Get users:
+                                    value: |-
+                                        [
+                                            {
+                                                "id": 64,
+                                                "name": "Maler Kasum",
+                                                "password": "3123"
+                                                "group": "MAlpe21"
+                                            },
+                                            {
+                                                "id": 35,
+                                                "name": "Kasner Milen",
+                                                "password": "12345678910",
+                                                "group": "KASme31"
+                                            }
+                                        ]
+                    description: GET all users
+                '404':
+                    description: Get not found
+                '500':
+                    description: Internal Server error
+            summary: GET Users
+        post:
+            requestBody:
+                description: ''
+                content:
+                    application/json:
+                        schema:
+                            type: array
+                            items: {}
+                        examples:
+                            UsersPost:
+                                value:
+                                    id: 1
+                                    name: Bob
+                                    password: '1234'
+                                    group: GALpe20
+            tags:
+                - Users
+            responses:
+                '200':
+                    description: |
+                        Users got Updated
+            summary: POST Users
 components:
     schemas:
         Error:
