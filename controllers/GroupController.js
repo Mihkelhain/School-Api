@@ -1,5 +1,5 @@
 const { db } = require("../db")
-const Groups = db.Groups
+const Groups = db.groups
 const { getBaseurl } = require("./helpers")
 
 // CREATE
@@ -16,7 +16,7 @@ exports.createNew = async (req, res) => {
 }
 // READ
 exports.getAll = async (req, res) => {
-    const result = await Groups.findAll({ attributes: ["id", "name"] })
+    const result = await Groups.findAll({ attributes: ["id", "group", "studentCount"] })
     res.json(result)
 }
 exports.getById = async (req, res) => {

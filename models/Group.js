@@ -9,7 +9,7 @@ module.exports = (dbConnection, Sequelize)=>{
             type: Sequelize.STRING,
             allowNull: false
         },
-        Students: {
+        studentCount: {
             type: Sequelize.INTEGER
         }
     })

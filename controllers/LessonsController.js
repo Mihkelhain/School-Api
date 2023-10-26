@@ -16,7 +16,7 @@ exports.createNew = async (req, res) => {
 }
 // READ
 exports.getAll = async (req, res) => {
-    const result = await Lessons.findAll({ attributes: ["id", "name"] })
+    const result = await Lessons.findAll({ attributes: ["id", "name", "length"] })
     res.json(result)
 }
 exports.getById = async (req, res) => {
