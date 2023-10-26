@@ -19,6 +19,15 @@ db.Sequelize = Sequelize
 db.connection = sequelize
 db.users = require("./models/User")(sequelize, Sequelize)
 db.schools = require("./models/School")(sequelize, Sequelize)
+db.UserSchools = require("./models/UserSchool")(sequelize, Sequelize, db.users, db.schools)
+
+db.schools.belongsToMany(db.users, { through: db.UserSchools })
+db.users.belongsToMany(db.schools, { through: db.UserSchools })
+db.schools.hasMany(db.UserSchools)
+db.users.hasMany(db.UserSchools)
+db.UserSchools.belongsTo(db.schools)
+db.UserSchools.belongsTo(db.users)
+
 
 
 sync = async () => {

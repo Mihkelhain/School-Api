@@ -25,15 +25,26 @@ exports.getById = (req, res) => {
     res.send(foundschool)
 }
 // UPDATE
-exports.editById = (req, res) => {
-
+exports.editById = async (req, res) => {
+    const updateResult = await schools.update({ ...req.body }, {
+        where: { id: req.params.id },
+        fields: ["Name", "Director"]
+    })
+    if (updateResult[0] == 0) {
+        return res.status(404).send({ error: "Player not found" })
+    }
+    res.status(202)
+        .location(`${getBaseurl(req)}/schools/${req.params.id}`)
+        .send()
 }
 
-
 // DELETE
-exports.deleteById = (req, res) => {
-    if (schools.delete(req.params.id) === undefined) {
-        return res.status(404).send({ error: "Shool not found" })
+exports.deleteById = async (req, res) => {
+    const deletedAmount = await schools.destroy({
+        where: { id: req.params.id }
+    })
+    if (deletedAmount === 0) {
+        return res.status(404).send({ error: "Player not found" })
     }
     res.status(204).send()
 }

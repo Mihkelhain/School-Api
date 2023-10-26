@@ -12,6 +12,7 @@ app.use("/docs", swaggerui.serve, swaggerui.setup(swaggerDocument))
 
 require("./routes/userRoutes")(app)
 require("./routes/SchoolRoutes")(app)
+require("./routes/UserSchoolRoutes")(app)
 
 app.listen(port, () => {
     require("./db").sync()
