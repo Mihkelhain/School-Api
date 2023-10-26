@@ -1,5 +1,5 @@
 const { db } = require("../db")
-const Lessons = db.Lessons
+const Lessons = db.lessons
 const { getBaseurl } = require("./helpers")
 
 // CREATE

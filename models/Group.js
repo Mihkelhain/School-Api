@@ -9,8 +9,8 @@ module.exports = (dbConnection, Sequelize)=>{
             type: Sequelize.STRING,
             allowNull: false
         },
-        length: {
-            type: Sequelize.DECIMAL
+        Students: {
+            type: Sequelize.INTEGER
         }
     })
     return Group

@@ -18,6 +18,7 @@ const db = {}
 db.Sequelize = Sequelize
 db.connection = sequelize
 db.lessons = require("./models/Lesson")(sequelize, Sequelize)
+db.groups = require("./models/Group")(sequelize, Sequelize)
 db.GroupLessons = require("./models/GroupLessons")(sequelize, Sequelize, db.lessons, db.groups)
 
 db.lessons.belongsToMany(db.groups, {through: db.GroupLessons})

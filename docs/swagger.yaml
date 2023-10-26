@@ -1,9 +1,9 @@
 openapi: 3.0.2
 info:
-    title: TARpe21_Games
+    title: School-Api
     version: 1.0.0
     description: |-
-        ### This is a Swagger UI for our Games API  
+        ### This is a Swagger UI for our School-Api 
 
         ### Error handlingErrors are presented using the HTTP status codes 400-599.
 
@@ -20,149 +20,10 @@ info:
         | 404| The requested resource can not be found or the user does not have access to the resource.
         | 5XX| A server error has occurred while processing the request.
 paths:
-    /games:
+    /users:
         get:
             tags:
-                - games
-            responses:
-                '200':
-                    content:
-                        application/json:
-                            examples:
-                                Empty Array:
-                                    value: []
-                                List Of Games:
-                                    value:
-                                        -
-                                            id: 1
-                                            name: Game name
-                                        -
-                                            id: 5
-                                            name: Another game
-                    description: 'Successful '
-            summary: Get all games
-        post:
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: '#/components/schemas/game'
-                        examples:
-                            NewGame:
-                                value:
-                                    name: some text
-                                    price: 76.33
-                required: true
-            tags:
-                - games
-            responses:
-                '201':
-                    headers:
-                        location: {}
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/game'
-                            examples:
-                                CreatedGame:
-                                    value:
-                                        id: 3
-                                        name: some text
-                                        price: 83.18
-                    description: Success
-    '/games/{id}':
-        summary: Handle single game by its id
-        get:
-            tags:
-                - games
-            responses:
-                '200':
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/game'
-                            examples:
-                                Single Game:
-                                    value:
-                                        id: 33
-                                        name: Game name
-                                        price: 50.89
-                    description: Successful
-                '404':
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/error'
-                            examples:
-                                error:
-                                    value:
-                                        error: Game not found
-                    description: Game was not found
-            summary: Get by Id
-        put:
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: '#/components/schemas/game'
-                        examples:
-                            Updated game:
-                                value:
-                                    id: 40
-                                    name: New name
-                                    price: 32.71
-                required: true
-            tags:
-                - games
-            responses:
-                '204':
-                    headers:
-                        location:
-                            schema:
-                                type: string
-                    description: Success
-                '404':
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/error'
-                            examples:
-                                Not found:
-                                    value:
-                                        error: game not found
-                    description: Not found
-        delete:
-            tags:
-                - games
-            responses:
-                '204':
-                    description: Succeeded
-                '404':
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/error'
-                            examples:
-                                NotFound:
-                                    value:
-                                        error: Game not found
-                    description: Game not found
-        parameters:
-            -
-                examples:
-                    Small:
-                        value: '6'
-                name: id
-                description: |
-                    Identificator for the game
-                schema:
-                    type: integer
-                in: path
-                required: true
-    /players:
-        get:
-            tags:
-                - players
+                - Users
             responses:
                 '200':
                     content:
@@ -170,96 +31,348 @@ paths:
                             schema:
                                 type: array
                                 items:
-                                    $ref: '#/components/schemas/player'
+                                    type: string
                             examples:
-                                Players:
-                                    value:
-                                        -
-                                            id: 2
-                                            name: some text
-                                            playTime: 53
-                                        -
-                                            id: 10
-                                            name: some text
-                                            playTime: 55
+                                Get all Users:
+                                    value: |-
+                                        [
+                                            return {"id":g.id,"name":g.name,"group":g.group}
+                                        ]
                     description: |
-                        Successful
-            summary: Get all players
-    '/players/{id}':
-        get:
+                        Successful Get
+                '404':
+                    description: GET Not Found
+                '500':
+                    description: Internal server error
+            summary: GET Users
+        put:
+            requestBody: {}
             tags:
-                - players
+                - Users
             responses:
                 '200':
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/player'
+                                type: array
+                                items:
+                                    type: string
                             examples:
-                                Single player:
-                                    value:
-                                        id: 13
-                                        name: some text
-                                        playTime: 63
-                    description: Successful
+                                PUT example:
+                                    value: "\t[ return {\"id\":g.id,\"name\":g.name,\"group\":g.group} ]"
+                    description: Successful Put
+            summary: PUT Users
+        post:
+            requestBody:
+                required: true
+            tags:
+                - Users
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items: {}
+                    description: Successful Post
                 '404':
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/error'
+                                type: array
+                                items:
+                                    type: string
+                    description: The Post was not successful
+            summary: POST Users
+        delete:
+            tags:
+                - Users
+            responses:
+                '200':
+                    description: Successful Delete
+            summary: DELETE Users
+    '/users/{id}':
+        summary: Handle users by its ID
+        get:
+            tags:
+                - Users
+            parameters:
+                -
+                    examples:
+                        Martin:
+                            value: '3'
+                    name: id
+                    description: |
+                        Get all users by id
+                    schema:
+                        type: integer
+                    in: path
+                    required: true
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: string
                             examples:
-                                Player not found:
+                                One User:
+                                    value: '{id:3,name:"martin",password:''b_phi<ibh'',group:"TARpe21"},'
+                    description: |+
+                        Success
+
+                '404':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Error'
+                            examples:
+                                error:
                                     value:
-                                        error: Player not found
-                    description: Player not found
-            summary: Get by Id
+                                        ' error': User not found
+                    description: |
+                        Couldnt find a user
         parameters:
             -
+                examples:
+                    john marston:
+                        value: '4'
                 name: id
+                description: |
+                    Get all users by id
+                schema:
+                    type: integer
+                in: path
+                required: true
+    /Schools:
+        get:
+            tags:
+                - School
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: string
+                            examples:
+                                Return all schools:
+                                    value: "\t[ return {\"id\":g.id,\"name\":g.name,\"director\":g.director} ]"
+                    description: |
+                        GET Schools
+            summary: GET Schools
+        put:
+            tags:
+                - School
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: string
+                            examples:
+                                Put all schools:
+                                    value: |+
+
+            summary: PUT Schools
+        post:
+            tags:
+                - School
+            summary: POST Schools
+        delete:
+            tags:
+                - School
+            summary: DELETE Schools
+    '/Schools/{id}':
+        get:
+            tags:
+                - School
+        put:
+            tags:
+                - School
+        post:
+            tags:
+                - School
+        delete:
+            tags:
+                - School
+    /Lessons:
+        get:
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: string
+                            examples:
+                                Get all lessons:
+                                    value: |-
+                                        let data = 
+                                            {
+                                                    "id":6
+                                                    "lessonsStart":9:30
+                                                    "lesson": Programming
+                                                }
+                                                
+                    description: Succssesfuly Get
+            summary: Get lesson
+        put:
+            responses:
+                '200':
+                    description: Succssesfuly Put
+            summary: Put lesson
+        post:
+            requestBody: {}
+            responses:
+                '200':
+                    description: Succssesfuly Post
+            summary: Post lesson
+        delete:
+            responses:
+                '200':
+                    description: Succssesfuly Delete
+            summary: Delete lesson
+    '/Lessons/{id}':
+        get:
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: string
+                            examples:
+                                ID:
+                                    value: |-
+                                        let data = [
+                                            {id: 1, LessonsStart: '9:30', Lesson:"Programming"},
+                                            {id: 2, LessonsStart: '8.30', Lesson:"Biology"},
+                                            {id: 3, LessonsStart: '12.45', Lesson:"P.E"},
+                                            {id: 4, LessonsStart: '8.30', Lesson:"Math"}
+                                        ]
+                    description: Succssesfuly Get
+                '404':
+                    description: Could not find Lesson
+        parameters:
+            -
+                examples:
+                    Programming:
+                        value: '7'
+                name: id
+                description: Get all lessons by id
+                schema:
+                    type: integer
+                in: path
+                required: true
+    /Groups:
+        get:
+            tags:
+                - Groups
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    format: int32
+                                    type: integer
+                            examples:
+                                Get all groups:
+                                    value: |-
+                                        let data =
+                                            {
+                                                    "id": 6
+                                                    "name": Mvcpe21
+                                                    "students": 16
+                                                }
+                                                
+                    description: Successful Get
+            summary: GET groups
+        put:
+            requestBody: {}
+            tags:
+                - Groups
+            responses:
+                '200':
+                    description: Successful Put
+            summary: PUT groups
+        post:
+            requestBody: {}
+            tags:
+                - Groups
+            responses:
+                '200':
+                    description: Successful Post
+            summary: POST group
+        delete:
+            tags:
+                - Groups
+            responses:
+                '200':
+                    description: Successful Delete
+            summary: Delete group
+    '/Groups/{id}':
+        get:
+            parameters:
+                -
+                    examples:
+                        Mvcpe21:
+                            value: '7'
+                    name: id
+                    description: Get Groups by id
+                    schema:
+                        type: integer
+                    in: path
+                    required: true
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: string
+                            examples:
+                                ID:
+                                    value: |-
+                                        let data = [
+                                            { id: 1, name: "Tarpe21", Students: 16 },
+                                            { id: 2, name: "Iot", Students:24  },
+                                            { id: 3, name: "Mvcpe20", Students: 12 },
+                                            { id: 4, name: "Tatge22", Students: 18 },
+                                            { id: 5, name: "SoT", Students: 5 }
+                                        ]
+                    description: Success
+                '404':
+                    description: Group not found
+        parameters:
+            -
+                examples:
+                    Mvcpe21:
+                        value: '7'
+                name: id
+                description: Get Groups by id
+                schema:
+                    type: integer
                 in: path
                 required: true
 components:
     schemas:
-        error:
-            title: Root Type for error
+        Error:
+            title: Root Type for Error
             description: ''
             type: object
             properties:
-                error:
+                ' error':
                     type: string
             example:
-                error: Error message.
-        game:
-            title: Root Type for game
-            description: ''
-            type: object
-            properties:
-                id:
-                    format: int32
-                    type: integer
-                name:
-                    type: string
-                price:
-                    format: double
-                    type: number
-            example:
-                id: 3
-                name: Minecraft
-                price: 26.99
-        player:
-            title: Root Type for player
-            description: ''
-            type: object
-            properties:
-                id:
-                    format: int32
-                    type: integer
-                name:
-                    type: string
-                playTime:
-                    format: int32
-                    type: integer
-            example:
-                id: 5
-                name: Tabatha
-                playTime: 0
+                ' error': error message
+
