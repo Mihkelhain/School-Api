@@ -4,7 +4,7 @@ const { getBaseurl } = require("./helpers")
 
 // CREATE
 exports.createNew = async (req, res) => {
-    if (!req.body.lesson || !req.body.lenght) {
+    if (!req.body.lesson || !req.body.length) {
         return res.status(400).send({ error: "One or all required parameters are missing" })
     }
     const createdLessons = await Lessons.create(req.body, {
@@ -16,7 +16,7 @@ exports.createNew = async (req, res) => {
 }
 // READ
 exports.getAll = async (req, res) => {
-    const result = await Lessons.findAll({ attributes: ["id", "name", "length"] })
+    const result = await Lessons.findAll({ attributes: ["id", "lessonStart", "lesson","length"] })
     res.json(result)
 }
 exports.getById = async (req, res) => {
