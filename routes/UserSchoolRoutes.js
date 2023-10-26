@@ -1,4 +1,4 @@
-const UserSchoolController = require("../controllers/UserSchoolController.js")
+const UserSchoolController = require("../controller/UserSchoolController.js")
 module.exports = (app) => {
     app.route("/UserSchools")
         .get(UserSchoolController.getAll)

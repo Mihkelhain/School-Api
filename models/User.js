@@ -19,4 +19,5 @@ module.exports = (dbConnection,Sequelize)=>{
             type:Sequelize.STRING,
         }
     })
+    return User
 }

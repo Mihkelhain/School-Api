@@ -14,25 +14,72 @@ paths:
                             schema:
                                 type: array
                                 items:
-                                    type: string
+                                    $ref: '#/components/schemas/users'
                             examples:
-                                Get all Users:
+                                Get users:
                                     value: |-
                                         [
-                                            return {"id":g.id,"name":g.name,"group":g.group}
+                                            {
+                                                "id": 64,
+                                                "name": "Maler Kasum",
+                                                "password": "3123"
+                                                "group": "MAlpe21"
+                                            },
+                                            {
+                                                "id": 35,
+                                                "name": "Kasner Milen",
+                                                "password": "12345678910",
+                                                "group": "KASme31"
+                                            }
                                         ]
-                    description: |
-                        Successful Get
+                    description: GET all users
+                '404':
+                    description: Get not found
+                '500':
+                    description: Internal Server error
             summary: GET Users
         post:
-            requestBody: {}
+            tags:
+                - Users
             responses:
-                '200': {}
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/users'
+                            examples:
+                                Post Users:
+                                    value:
+                                        -
+                                            id: 62
+                                            name: Bebil kasum
+                                            password: 41
+                                            group: MARke21
+                                        -
+                                            id: 97
+                                            name: Klasus Niel
+                                            password: 55
+                                            group: VALem21
+                    description: POST Users
     '/users/{id}':
         summary: Handle users by its ID
         get:
             tags:
-                - users
+                - Users
+            parameters:
+                -
+                    examples:
+                        Martin:
+                            value: '3'
+                    name: id
+                    description: |
+                        Get all users by id
+                    schema:
+                        type: integer
+                    in: path
+                    required: true
             responses:
                 '200':
                     content:
@@ -58,6 +105,20 @@ paths:
                                         ' error': User not found
                     description: |
                         Couldnt find a user
+        put:
+            parameters:
+                -
+                    examples:
+                        john marston:
+                            value: '4'
+                    name: id
+                    description: |
+                        Get all users by id
+                    schema:
+                        type: integer
+                    in: path
+                    required: true
+        delete: {}
         parameters:
             -
                 examples:
@@ -72,6 +133,25 @@ paths:
                 required: true
     /Schools:
         get:
+            tags:
+                - School
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/Schools'
+                            examples:
+                                Return all schools:
+                                    value: "\t[ return {\"id\":g.id,\"name\":g.name,\"director\":g.director} ]"
+                    description: |
+                        GET Schools
+            summary: GET Schools
+        put:
+            tags:
+                - School
             responses:
                 '200':
                     content:
@@ -81,10 +161,206 @@ paths:
                                 items:
                                     type: string
                             examples:
-                                Return all schools:
-                                    value: "\t[ return {\"id\":g.id,\"name\":g.name,\"director\":g.director} ]"
-            summary: GET Schools
-    '/Schools/{id}': {}
+                                Put all schools:
+                                    value: |+
+
+            summary: PUT Schools
+        post:
+            tags:
+                - School
+            summary: POST Schools
+        delete:
+            tags:
+                - School
+            summary: DELETE Schools
+    '/Schools/{id}':
+        get:
+            tags:
+                - School
+        put:
+            tags:
+                - School
+        post:
+            tags:
+                - School
+        delete:
+            tags:
+                - School
+    /Lessons:
+        get:
+            tags:
+                - Lessons
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/Lessons'
+                            examples:
+                                Get lesson:
+                                    value:
+                                        -
+                                            id: 49
+                                            lessonsStart: some text
+                                            lesson: some text
+                                        -
+                                            id: 20
+                                            lessonsStart: some text
+                                            lesson: some text
+                    description: Succssesfuly Get
+                '404':
+                    description: Lesson not found
+                '500':
+                    description: Server err
+            summary: Get lesson
+        post:
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: array
+                            items:
+                                $ref: '#/components/schemas/Lessons'
+                        examples:
+                            Add lessons:
+                                value:
+                                    -
+                                        id: 2
+                                        lessonsStart: some text
+                                        lesson: some text
+                                    -
+                                        id: 58
+                                        lessonsStart: some text
+                                        lesson: some text
+            tags:
+                - Lessons
+            responses:
+                '200':
+                    description: Succssesfuly Post
+                '404':
+                    description: Not found
+            summary: Post lesson
+    '/Lessons/{id}':
+        get:
+            tags:
+                - Lessons
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: string
+                            examples:
+                                ID:
+                                    value: |-
+                                        let data = [
+                                            {id: 1, LessonsStart: '9:30', Lesson:"Programming"},
+                                            {id: 2, LessonsStart: '8.30', Lesson:"Biology"},
+                                            {id: 3, LessonsStart: '12.45', Lesson:"P.E"},
+                                            {id: 4, LessonsStart: '8.30', Lesson:"Math"}
+                                        ]
+                    description: Succssesfuly Get
+                '404':
+                    description: Could not find Lesson
+        parameters:
+            -
+                examples:
+                    Programming:
+                        value: '7'
+                name: id
+                description: Get all lessons by id
+                schema:
+                    type: integer
+                in: path
+                required: true
+    /Groups:
+        get:
+            tags:
+                - Groups
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/Groups'
+                            examples:
+                                Get all groups:
+                                    value:
+                                        -
+                                            id: 29
+                                            name: some text
+                                            studentCount: 99
+                                        -
+                                            id: 83
+                                            name: some text
+                                            studentCount: 95
+                    description: Successful Get
+                '404':
+                    description: Group no found
+                '500':
+                    description: Server err
+            summary: GET groups
+        post:
+            requestBody: {}
+            tags:
+                - Groups
+            responses:
+                '200':
+                    description: Successful Post
+            summary: POST group
+    '/Groups/{id}':
+        get:
+            tags:
+                - Groups
+            parameters:
+                -
+                    examples:
+                        Mvcpe21:
+                            value: '7'
+                    name: id
+                    description: Get Groups by id
+                    schema:
+                        type: integer
+                    in: path
+                    required: true
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: string
+                            examples:
+                                ID:
+                                    value: |-
+                                        let data = [
+                                            { id: 1, name: "Tarpe21", Students: 16 },
+                                            { id: 2, name: "Iot", Students:24  },
+                                            { id: 3, name: "Mvcpe20", Students: 12 },
+                                            { id: 4, name: "Tatge22", Students: 18 },
+                                            { id: 5, name: "SoT", Students: 5 }
+                                        ]
+                    description: Success
+                '404':
+                    description: Group not found
+        parameters:
+            -
+                examples:
+                    Mvcpe21:
+                        value: '7'
+                name: id
+                description: Get Groups by id
+                schema:
+                    type: integer
+                in: path
+                required: true
 components:
     schemas:
         Error:
@@ -96,3 +372,71 @@ components:
                     type: string
             example:
                 ' error': error message
+        Groups:
+            title: Root Type for Groups
+            description: ''
+            type: object
+            properties:
+                id:
+                    format: int32
+                    type: integer
+                name:
+                    type: string
+                studentCount:
+                    format: int32
+                    type: integer
+            example:
+                id: 1
+                name: Tarpe21
+                studentCount: 16
+        Schools:
+            title: Root Type for Schools
+            description: '    '
+            type: object
+            properties:
+                id:
+                    format: int32
+                    type: integer
+                name:
+                    type: string
+                Director:
+                    type: string
+            example:
+                id: 1
+                name: TTHK
+                Director: Paul Alekand
+        Lessons:
+            title: Root Type for Lessons
+            description: ''
+            type: object
+            properties:
+                id:
+                    format: int32
+                    type: integer
+                lessonsStart:
+                    type: string
+                lesson:
+                    type: string
+            example:
+                id: 1
+                lessonsStart: '9,30'
+                lesson: Programming
+        users:
+            title: Root Type for Users
+            description: '    '
+            type: object
+            properties:
+                id:
+                    format: int32
+                    type: integer
+                name:
+                    type: string
+                password:
+                    type: string
+                group:
+                    type: string
+            example:
+                id: 1
+                name: Bob
+                password: 1234
+                group: GALpe20

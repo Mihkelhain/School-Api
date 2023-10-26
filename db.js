@@ -31,7 +31,49 @@ db.UserSchools.belongsTo(db.users)
 
 
 sync = async () => {
-    await sequelize.sync({ force: true }) // Erase evevryhting and recreate
+    if (process.env.DROP_DB) {
+        console.log("Begin DROP")
+        await db.connection.query('SET FOREIGN_KEY_CHECKS = 0')
+        console.log("Checks disabled")
+        await db.connection.sync({ force: true })
+        console.log('Database synchronised.');
+        await db.connection.query('SET FOREIGN_KEY_CHECKS = 1')
+        console.log("Checks enabled")
+
+        const [school, CreatedS] = await db.schools.findOrCreate({
+            where: {
+                name: "TThk"
+            },
+            defaults: {
+                name: "Tthk",
+                Director: "Paul Alekand",
+            }
+        })
+        console.log("school created: ", CreatedS)
+        const [user, CreatedU] = await db.users.findOrCreate({
+            where: {
+                name: "Hannes Malter"
+            },
+            defaults: {
+                name: "Hannes Malter"
+            }
+        })
+        console.log("user created: ", CreatedU)
+        const [UserSchool, CreatedUS] = await db.UserSchool.findOrCreate({
+            where: {
+                id: 1
+            },
+            defaults: {
+                userId: user.id,
+                schoolId: school.id,
+                playtime: 55
+            }
+        })
+        console.log("UserSchool created: ", CreatedUS)
+    }
+    else {
+        await db.connection.sync({ alter: true }) // Alter existing to match the model
+    }
 }
 
 module.exports = { db, sync }
