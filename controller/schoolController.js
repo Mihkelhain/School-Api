@@ -1,3 +1,4 @@
+const { db } = require("../db")
 const schools = require("../schools/data")
 const { getBaseurl } = require("./helpers")
 
@@ -14,8 +15,9 @@ exports.createNew = (req, res) => {
         .send(createdschool)
 }
 // READ
-exports.getAll = (req, res) => {
-    res.send(schools.getAll())
+exports.getAll = async (req, res) => {
+    const result = await schools.getAll({ attributes: [ "id","name","Director"] })
+    res.json(result)
 }
 exports.getById = (req, res) => {
     const foundschool = schools.getById(req.params.id)

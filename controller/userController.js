@@ -4,7 +4,7 @@ const { getBaseurl } = require("./helpers")
 
 // CREATE
 exports.createNew = async (req, res) => {
-    if (!req.body.name || !req.body.group || !req.params.password) {
+    if (!req.body.name || !req.body.group || !req.body.password) {
         return res.status(400).send({ error: "One or all required parameters are missing" })
     }
     const createduser = await users.create(req.body, {

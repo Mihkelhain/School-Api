@@ -1,8 +1,8 @@
-let Schools = [
-    {id:1,name:"TTHK",Director:'juqim'},
-    {id:2,name:"TSG",Director:'Kaarel'},
-    {id:3,name:"Tartu ülikool",Director:'El ninio'},
-    {id:4,name:"Nõmme gümnaasium",Director:'Kisno nõmme'}
+let schools = [
+    {id:1,name:"TTHK",Director: "Paul Alekand"},
+    {id:2,name:"TSG",Director:"Kaarel"},
+    {id:3,name:"Tartu ülikool",Director:"El ninio"},
+    {id:4,name:"Nõmme gümnaasium",Director:"Kisno nõmme"}
 ]
 
 exports.getAll = () => {
@@ -16,6 +16,14 @@ exports.create = (newSchool) => {
     newSchool.id = newId
     data.push(newSchool)
     return newSchool
+}
+exports.edit = (modifiedSchool) => {
+    var toBeUpdated = this.getById(modifiedSchool.id)
+    if (toBeUpdated === undefined) {
+        return
+    }
+    UpdatedSchool = { ...toBeUpdated, ...modifiedSchool }
+    return UpdatedSchool
 }
 exports.delete = (id) => {
     var toBeDeleted = this.getById(id)

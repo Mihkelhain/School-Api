@@ -59,6 +59,9 @@ paths:
                                         ' error': User not found
                     description: |
                         Couldnt find a user
+                '500':
+                    description: |
+                        Server cannot be accessed
             summary: GET UsersById
         put:
             requestBody:
@@ -69,21 +72,18 @@ paths:
                             items: {}
                         examples:
                             Put Example:
-                                value: |4
-
-                                        {
-                                            "id": 3,
-                                            "name": "Maleri Kasum",
-                                            "password": "3123"
-                                            "group": "MAlpe21"
-                                        },
+                                value:
+                                    id: 1
+                                    name: Bob
+                                    password: '1234'
+                                    group: GALpe20
             tags:
                 - Users
             parameters:
                 -
                     examples:
                         PUTusersById:
-                            value: '3'
+                            value: '22'
                     name: id
                     description: Put Users By id
                     schema:
@@ -96,9 +96,12 @@ paths:
                         application/json: {}
                     description: |
                         Updated Users
+                '404':
+                    description: The User was not found
+                '500':
+                    description: The Server failed to update.
             summary: PUT users
         delete:
-            requestBody: {}
             tags:
                 - Users
             parameters:
@@ -115,10 +118,13 @@ paths:
                     required: true
             responses:
                 '200':
-                    description: Deleted User for the DB
+                    description: The User has been Deleted
+                '204':
+                    description: The Account was delete Successfully
                 '404':
-                    description: |
-                        The User to be Deleted was not found
+                    description: The User was not found
+                '500':
+                    description: The server cannot be reached
             summary: DELETE Users
         parameters:
             -
@@ -143,16 +149,47 @@ paths:
                             schema:
                                 type: array
                                 items:
-                                    $ref: '#/components/schemas/Schools'
+                                    $ref: '#/components/schemas/schools'
                             examples:
                                 Return all schools:
-                                    value: "\t[ return {\"id\":g.id,\"name\":g.name,\"director\":g.director} ]"
+                                    value:
+                                        -
+                                            id: 1
+                                            name: Goberstien Univeristy
+                                            Director: hannes paksler
+                                        -
+                                            id: 2
+                                            name: Coolguy univeristy
+                                            Director: Mihkel Hain
                     description: |
                         GET Schools
+                '404':
+                    description: No users were found
+                '500':
+                    description: The Server cannot be reached
             summary: GET Schools
         post:
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: array
+                            items: {}
+                        examples:
+                            SchoolsPutExample:
+                                value:
+                                    id: 1
+                                    name: TTHK
+                                    Director: Paul Alekand
             tags:
                 - School
+            responses:
+                '200':
+                    description: The School has been created
+                '404':
+                    description: The School failed to create
+                '500':
+                    description: The Server Failed for unknown reason
             summary: POST Schools
     '/Schools/{id}':
         get:
@@ -180,13 +217,15 @@ paths:
                                 Get lesson:
                                     value:
                                         -
-                                            id: 49
+                                            id: 32
                                             lessonsStart: some text
                                             lesson: some text
+                                            length: some text
                                         -
-                                            id: 20
+                                            id: 28
                                             lessonsStart: some text
                                             lesson: some text
+                                            length: some text
                     description: Succssesfuly Get
                 '404':
                     description: Lesson not found
@@ -206,9 +245,10 @@ paths:
                                 value: |4-
 
                                         {
-                                            "id": 92,
+                                            "id": 59,
                                             "lessonsStart": "some text",
-                                            "lesson": "some text"
+                                            "lesson": "some text",
+                                            "length": "some text"
                                         }
             tags:
                 - Lessons
@@ -222,10 +262,14 @@ paths:
                                     $ref: '#/components/schemas/Lessons'
                             examples:
                                 Post Lesson:
-                                    value:
-                                        id: 1
-                                        lessonsStart: '9,30'
-                                        lesson: Programming
+                                    value: |4
+
+                                            {
+                                                "id": 35,
+                                                "lessonsStart": "some text",
+                                                "lesson": "some text",
+                                                "length": "some text"
+                                            }
                     description: Successful Post
                 '404':
                     description: Not found
@@ -451,6 +495,10 @@ paths:
                 '200':
                     description: |
                         Users got Updated
+                '404':
+                    description: The Post action failed
+                '500':
+                    description: Server Error
             summary: POST Users
 components:
     schemas:
@@ -480,38 +528,6 @@ components:
                 id: 1
                 name: Tarpe21
                 studentCount: 16
-        Schools:
-            title: Root Type for Schools
-            description: '    '
-            type: object
-            properties:
-                id:
-                    format: int32
-                    type: integer
-                name:
-                    type: string
-                Director:
-                    type: string
-            example:
-                id: 1
-                name: TTHK
-                Director: Paul Alekand
-        Lessons:
-            title: Root Type for Lessons
-            description: ''
-            type: object
-            properties:
-                id:
-                    format: int32
-                    type: integer
-                lessonsStart:
-                    type: string
-                lesson:
-                    type: string
-            example:
-                id: 1
-                lessonsStart: '9,30'
-                lesson: Programming
         users:
             title: Root Type for Users
             description: '    '
@@ -529,5 +545,40 @@ components:
             example:
                 id: 1
                 name: Bob
-                password: 1234
+                password: '1234'
                 group: GALpe20
+        Lessons:
+            title: Root Type for Lesson
+            description: ''
+            type: object
+            properties:
+                id:
+                    format: int32
+                    type: integer
+                lessonsStart:
+                    type: string
+                lesson:
+                    type: string
+                length:
+                    type: string
+            example:
+                id: 1
+                lessonsStart: '9,30'
+                lesson: Programming
+                length: 45 min
+        schools:
+            title: Root Type for Schools
+            description: '    '
+            type: object
+            properties:
+                id:
+                    format: int32
+                    type: integer
+                name:
+                    type: string
+                Director:
+                    type: string
+            example:
+                id: 1
+                name: TTHK
+                Director: Paul Alekand
