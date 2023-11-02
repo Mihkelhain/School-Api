@@ -9,7 +9,7 @@ exports.createNew = async (req, res) => {
         return res.status(400).send({ error: "One or all required parameters are missing" })
     }
     const createdLessons = await Lessons.create(req.body, {
-        fields: ["lessonStart","lesson", "length"]
+        fields: ["lessonStart","name", "length"]
     })
 
     res.status(201)

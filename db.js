@@ -29,11 +29,6 @@ db.lessons.hasMany(db.GroupLessons)
 db.groups.hasMany(db.GroupLessons)
 db.GroupLessons.belongsTo(db.lessons)
 db.GroupLessons.belongsTo(db.groups)
-
-sync = async () => {
-    //await sequelize.sync({ force: true }) // Erase all and recreate
-    await sequelize.sync({alter:true}) // Alter existing to match the model
-
 db.users = require("./models/User")(sequelize, Sequelize)
 db.schools = require("./models/School")(sequelize, Sequelize)
 db.UserSchools = require("./models/UserSchool")(sequelize, Sequelize, db.users, db.schools)
@@ -44,6 +39,9 @@ db.schools.hasMany(db.UserSchools)
 db.users.hasMany(db.UserSchools)
 db.UserSchools.belongsTo(db.schools)
 db.UserSchools.belongsTo(db.users)
+
+
+
 
 
 
