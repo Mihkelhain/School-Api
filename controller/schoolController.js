@@ -1,14 +1,15 @@
 const { db } = require("../db")
-const schools = require("../schools/data")
+const schools = db.schools
 const { getBaseurl } = require("./helpers")
 
 // CREATE
 exports.createNew = (req, res) => {
-    if (!req.body.name) {
-        return res.status(400).send({ error: "Required parameter 'name' is missing" })
+    if (!req.body.name || !req.body.director ) {
+        return res.status(400).send({ error: "Required parameter 'name' or 'Director' is missing" })
     }
     const createdschool = schools.create({
-        name: req.body.name
+        name: req.body.name,
+        director: req.body.director
     })
     res.status(201)
         .location(`${getBaseurl(req)}/schools/${createdschool.id}`)
@@ -16,24 +17,24 @@ exports.createNew = (req, res) => {
 }
 // READ
 exports.getAll = async (req, res) => {
-    const result = await schools.getAll({ attributes: [ "id","name","Director"] })
+    const result = await schools.findAll({ attributes: [ "id","name","director"] })
     res.json(result)
 }
-exports.getById = (req, res) => {
-    const foundschool = schools.getById(req.params.id)
-    if (foundschool === undefined) {
+exports.getById = async (req, res) => {
+    const foundschool = await schools.findByPk(req.params.id)
+    if (foundschool === null) {
         return res.status(404).send({ error: `school not found` })
     }
-    res.send(foundschool)
+    res.json(foundschool)
 }
 // UPDATE
 exports.editById = async (req, res) => {
     const updateResult = await schools.update({ ...req.body }, {
         where: { id: req.params.id },
-        fields: ["Name", "Director"]
+        fields: ["id","name", "director"]
     })
     if (updateResult[0] == 0) {
-        return res.status(404).send({ error: "Player not found" })
+        return res.status(404).send({ error: "School not found" })
     }
     res.status(202)
         .location(`${getBaseurl(req)}/schools/${req.params.id}`)
@@ -46,7 +47,7 @@ exports.deleteById = async (req, res) => {
         where: { id: req.params.id }
     })
     if (deletedAmount === 0) {
-        return res.status(404).send({ error: "Player not found" })
+        return res.status(404).send({ error: "School not found" })
     }
     res.status(204).send()
 }

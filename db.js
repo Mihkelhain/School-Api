@@ -1,4 +1,5 @@
-const { Sequelize } = require("sequelize")
+const { Sequelize } = require("sequelize");
+const School = require("./models/School");
 const sequelize = new Sequelize(process.env.DATABASE, process.env.DB_USER, process.env.DB_PASS, {
     host: process.env.DB_HOST,
     dialect: "mariadb",
@@ -40,16 +41,18 @@ sync = async () => {
         await db.connection.query('SET FOREIGN_KEY_CHECKS = 1')
         console.log("Checks enabled")
 
-        const [school, CreatedS] = await db.schools.findOrCreate({
+        const [School, CreatedS] = await db.schools.findOrCreate({
             where: {
-                name: "TThk"
+                name: "TTHK"
             },
             defaults: {
-                name: "Tthk",
+                name: "TTHK",
                 Director: "Paul Alekand",
             }
         })
         console.log("school created: ", CreatedS)
+        
+
         const [user, CreatedU] = await db.users.findOrCreate({
             where: {
                 name: "Hannes Malter"
@@ -59,14 +62,13 @@ sync = async () => {
             }
         })
         console.log("user created: ", CreatedU)
-        const [UserSchool, CreatedUS] = await db.UserSchool.findOrCreate({
+        const [UserSchool, CreatedUS] = await db.UserSchools.findOrCreate({
             where: {
                 id: 1
             },
             defaults: {
                 userId: user.id,
-                schoolId: school.id,
-                playtime: 55
+                schoolId: School.id,
             }
         })
         console.log("UserSchool created: ", CreatedUS)

@@ -1,12 +1,12 @@
 let schools = [
-    {id:1,name:"TTHK",Director: "Paul Alekand"},
-    {id:2,name:"TSG",Director:"Kaarel"},
-    {id:3,name:"Tartu ülikool",Director:"El ninio"},
-    {id:4,name:"Nõmme gümnaasium",Director:"Kisno nõmme"}
+    {id:1,name:"TTHK",director: "Paul Alekand"},
+    {id:2,name:"TSG",director:"Kaarel"},
+    {id:3,name:"Tartu ülikool",director:"El ninio"},
+    {id:4,name:"Nõmme gümnaasium",director:"Kisno nõmme"}
 ]
 
 exports.getAll = () => {
-    return data.map(g => { return { "id": g.id, "name": g.name, "Director": g.Director } })
+    return data.map(g => { return { "id": g.id , "name": g.name , "director": g.director } })
 }
 exports.getById = (id) => {
     return data.find((thing) => thing.id == parseInt(id))

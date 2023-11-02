@@ -1,15 +1,15 @@
 module.exports = (dbConnection, Sequelize) => {
     const School = dbConnection.define("School", {
-        id: {
+        id:{
             type: Sequelize.INTEGER,
             primaryKey: true,
-            autoIncrement: true
+            autoIncrement : true
         },
         name: {
             type: Sequelize.STRING,
             allowNull: false
         },
-        Director: {
+        director: {
             type: Sequelize.STRING
         }
     })
