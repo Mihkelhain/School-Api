@@ -4,11 +4,11 @@ const { getBaseurl } = require("./helpers")
 
 // CREATE
 exports.createNew = async (req, res) => {
-    if (!req.body.name || !req.body.price) {
+    if (!req.body.name || !req.body.group || !req.body.password) {
         return res.status(400).send({ error: "One or all required parameters are missing" })
     }
     const createduser = await users.create(req.body, {
-        fields: ["name", "price"]
+        fields: [ "id","name","group","password"]
     })
     res.status(201)
         .location(`${getBaseurl(req)}/users/${createduser.id}`)
@@ -16,7 +16,7 @@ exports.createNew = async (req, res) => {
 }
 // READ
 exports.getAll = async (req, res) => {
-    const result = await users.findAll({ attributes: ["id", "name"] })
+    const result = await users.findAll({ attributes: [ "id","name","group","password"] })
     res.json(result)
 }
 exports.getById = async (req, res) => {
@@ -31,12 +31,12 @@ exports.editById = async (req, res) => {
     console.log("Update:", req.params, req.body);
     const updateResult = await users.update({ ...req.body }, {
         where: { id: req.params.id },
-        fields: ["name", "price"]
+        fields: ["name","group","password"]
     })
     if (updateResult[0] == 0) {
         return res.status(404).send({ "error": "user not found" })
     }
-    res.status(204)
+    res.status(202)
         .location(`${getBaseurl(req)}/users/${req.params.id}`)
         .send()
 }

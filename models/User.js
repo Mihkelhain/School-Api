@@ -11,7 +11,7 @@ module.exports = (dbConnection,Sequelize)=>{
             type: Sequelize.STRING,
             allowNull: false
         },
-        Password:{
+        password:{
             type: Sequelize.STRING,
             allowNull: false
         },
@@ -19,4 +19,5 @@ module.exports = (dbConnection,Sequelize)=>{
             type:Sequelize.STRING,
         }
     })
+    return User
 }
