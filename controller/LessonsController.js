@@ -4,7 +4,7 @@ const { getBaseurl } = require("./helpers")
 
 // CREATE
 exports.createNew = async (req, res) => {
-    if (!req.body.lesson || !req.body.length || !req.body.lessonStart)
+    if (!req.body.name || !req.body.length || !req.body.lessonStart)
      {
         return res.status(400).send({ error: "One or all required parameters are missing" })
     }
