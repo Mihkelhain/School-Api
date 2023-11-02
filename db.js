@@ -29,8 +29,8 @@ db.GroupLessons.belongsTo(db.lessons)
 db.GroupLessons.belongsTo(db.groups)
 
 sync = async () => {
-    await sequelize.sync({ force: true }) // Erase all and recreate
-    //await sequelize.sync({alter:true}) // Alter existing to match the model
+    //await sequelize.sync({ force: true }) // Erase all and recreate
+    await sequelize.sync({alter:true}) // Alter existing to match the model
 }
 
 module.exports = { db, sync }

@@ -1,13 +1,13 @@
 let data = [
-    { id: 1, name: "Tarpe21", Students: 16 },
-    { id: 2, name: "Iot", Students:24  },
-    { id: 3, name: "Mvcpe20", Students: 12 },
-    { id: 4, name: "Tatge22", Students: 18 },
-    { id: 5, name: "SoT", Students: 5 }
+    { id: 1, name: "Tarpe21", studentCount: 16 },
+    { id: 2, name: "Iot", studentCount:24  },
+    { id: 3, name: "Mvcpe20", studentCount: 12 },
+    { id: 4, name: "Tatge22", studentCount: 18 },
+    { id: 5, name: "SoT", studentCount: 5 }
 ]
 
 exports.getAll = () => {
-    return data.map(sapi => { return { "id": sapi.id, "name": sapi.name, "students": sapi.students } })
+    return data.map(sapi => { return { "id": sapi.id, "name": sapi.name, "studentCount": sapi.studentCount } })
 }
 exports.getById = (id) => {
     return data.find((thing) => thing.id == parseInt(id))

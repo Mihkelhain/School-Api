@@ -5,15 +5,17 @@ module.exports = (dbConnection, Sequelize)=>{
             primaryKey: true,
             autoIncrement: true
         },
-        lessonsStart: {
+        lessonStart: {
+            type: Sequelize.STRING,
+            allowNull: true
+        },
+        name: {
             type: Sequelize.STRING,
             allowNull: false
         },
-        Lesson: {
-            type: Sequelize.STRING
-        },
         length: {
-            type: Sequelize.DECIMAL
+            type: Sequelize.INTEGER,
+            allowNull: true
         }
         
     })

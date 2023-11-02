@@ -5,12 +5,13 @@ module.exports = (dbConnection, Sequelize)=>{
             primaryKey: true,
             autoIncrement: true
         },
-        group: {
+        name: {
             type: Sequelize.STRING,
             allowNull: false
         },
         studentCount: {
-            type: Sequelize.INTEGER
+            type: Sequelize.INTEGER,
+            allowNull: false
         }
     })
     return Group

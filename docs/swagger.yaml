@@ -59,7 +59,10 @@ paths:
                                         ' error': User not found
                     description: |
                         Couldnt find a user
-            summary: GET UsersById
+                '500':
+                    description: |
+                        Server cannot be accessed
+            summary: GET Users By Id
         put:
             requestBody:
                 content:
@@ -69,21 +72,18 @@ paths:
                             items: {}
                         examples:
                             Put Example:
-                                value: |4
-
-                                        {
-                                            "id": 3,
-                                            "name": "Maleri Kasum",
-                                            "password": "3123"
-                                            "group": "MAlpe21"
-                                        },
+                                value:
+                                    id: 1
+                                    name: Bob
+                                    password: '1234'
+                                    group: GALpe20
             tags:
                 - Users
             parameters:
                 -
                     examples:
                         PUTusersById:
-                            value: '3'
+                            value: '22'
                     name: id
                     description: Put Users By id
                     schema:
@@ -91,14 +91,14 @@ paths:
                     in: path
                     required: true
             responses:
-                '200':
-                    content:
-                        application/json: {}
-                    description: |
-                        Updated Users
-            summary: PUT users
+                '202':
+                    description: The User was updated
+                '404':
+                    description: The User was not found
+                '500':
+                    description: The Server failed to update.
+            summary: PUT users by Id
         delete:
-            requestBody: {}
             tags:
                 - Users
             parameters:
@@ -114,12 +114,13 @@ paths:
                     in: path
                     required: true
             responses:
-                '200':
-                    description: Deleted User for the DB
+                '204':
+                    description: The Account was delete Successfully
                 '404':
-                    description: |
-                        The User to be Deleted was not found
-            summary: DELETE Users
+                    description: The User was not found
+                '500':
+                    description: The server cannot be reached
+            summary: DELETE Users by Id
         parameters:
             -
                 examples:
@@ -132,38 +133,6 @@ paths:
                     type: integer
                 in: path
                 required: true
-    /Schools:
-        get:
-            tags:
-                - School
-            responses:
-                '200':
-                    content:
-                        application/json:
-                            schema:
-                                type: array
-                                items:
-                                    $ref: '#/components/schemas/Schools'
-                            examples:
-                                Return all schools:
-                                    value: "\t[ return {\"id\":g.id,\"name\":g.name,\"director\":g.director} ]"
-                    description: |
-                        GET Schools
-            summary: GET Schools
-        post:
-            tags:
-                - School
-            summary: POST Schools
-    '/Schools/{id}':
-        get:
-            tags:
-                - School
-        put:
-            tags:
-                - School
-        delete:
-            tags:
-                - School
     /Lessons:
         get:
             tags:
@@ -177,19 +146,19 @@ paths:
                                 items:
                                     $ref: '#/components/schemas/Lessons'
                             examples:
-                                Get lesson:
+                                Get id example:
                                     value:
                                         -
-                                            id: 32
-                                            lessonsStart: some text
-                                            lesson: some text
-                                            length: some text
+                                            id: 5
+                                            lessonStart: some text
+                                            length: 94
+                                            name: some text
                                         -
-                                            id: 28
-                                            lessonsStart: some text
-                                            lesson: some text
-                                            length: some text
-                    description: Succssesfuly Get
+                                            id: 35
+                                            lessonStart: some text
+                                            length: 81
+                                            name: some text
+                    description: Succsessfuly Get
                 '404':
                     description: Lesson not found
                 '500':
@@ -200,39 +169,18 @@ paths:
                 content:
                     application/json:
                         schema:
-                            type: array
-                            items:
-                                $ref: '#/components/schemas/Lessons'
+                            $ref: '#/components/schemas/Lessons'
                         examples:
-                            Add lessons:
-                                value: |4-
-
-                                        {
-                                            "id": 59,
-                                            "lessonsStart": "some text",
-                                            "lesson": "some text",
-                                            "length": "some text"
-                                        }
+                            Example:
+                                value:
+                                    id: 52
+                                    lessonStart: some text
+                                    length: 21
+                                    name: some text
             tags:
                 - Lessons
             responses:
-                '200':
-                    content:
-                        application/json:
-                            schema:
-                                type: array
-                                items:
-                                    $ref: '#/components/schemas/Lessons'
-                            examples:
-                                Post Lesson:
-                                    value: |4
-
-                                            {
-                                                "id": 35,
-                                                "lessonsStart": "some text",
-                                                "lesson": "some text",
-                                                "length": "some text"
-                                            }
+                '201':
                     description: Successful Post
                 '404':
                     description: Not found
@@ -264,16 +212,78 @@ paths:
                                 ID:
                                     value:
                                         -
-                                            id: 67
-                                            lessonsStart: some text
-                                            lesson: some text
+                                            id: 78
+                                            lessonStart: some text
+                                            length: 49
+                                            name: some text
                                         -
-                                            id: 83
-                                            lessonsStart: some text
-                                            lesson: some text
+                                            id: 18
+                                            lessonStart: some text
+                                            length: 57
+                                            name: some text
                     description: Successful Get
                 '404':
                     description: Could not find Lesson
+        put:
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/Lessons'
+                        examples:
+                            example:
+                                value:
+                                    id: 44
+                                    lessonStart: some text
+                                    length: 68
+                                    name: some text
+            tags:
+                - Lessons
+            parameters:
+                -
+                    examples:
+                        Programming:
+                            value: '7'
+                    name: id
+                    description: Put all lessons by id
+                    schema:
+                        type: integer
+                    in: path
+                    required: true
+            responses:
+                '200':
+                    description: Succsess
+                '404':
+                    description: Id not found
+                '500':
+                    description: Server err
+        delete:
+            tags:
+                - Lessons
+            parameters:
+                -
+                    examples:
+                        Programming:
+                            value: '7'
+                    name: id
+                    description: Delete all lessons by id
+                    schema:
+                        type: integer
+                    in: path
+                    required: true
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/Lessons'
+                    description: Id Deleted Succsessfully
+                '404':
+                    description: Id not found
+                '500':
+                    description: Server err
         parameters:
             -
                 examples:
@@ -299,15 +309,13 @@ paths:
                                     $ref: '#/components/schemas/Groups'
                             examples:
                                 Get all groups:
-                                    value:
-                                        -
-                                            id: 29
-                                            name: some text
-                                            studentCount: 99
-                                        -
-                                            id: 83
-                                            name: some text
-                                            studentCount: 95
+                                    value: |4-
+
+                                            {
+                                                "id": 78,
+                                                "name": "some text",
+                                                "studentCount": 52
+                                            }
                     description: Successful Get
                 '404':
                     description: Group no found
@@ -319,22 +327,17 @@ paths:
                 content:
                     application/json:
                         schema:
-                            type: array
-                            items:
-                                $ref: '#/components/schemas/Groups'
+                            $ref: '#/components/schemas/Groups'
                         examples:
-                            Post Group:
-                                value: |4
-
-                                        {
-                                            "id": 19,
-                                            "name": "some text",
-                                            "studentCount": 47
-                                        }
+                            eXAMPLE:
+                                value:
+                                    id: 95
+                                    name: some text
+                                    studentCount: 4
             tags:
                 - Groups
             responses:
-                '200':
+                '201':
                     content:
                         application/json:
                             schema:
@@ -344,14 +347,9 @@ paths:
                             examples:
                                 Post Group:
                                     value:
-                                        -
-                                            id: 44
-                                            name: some text
-                                            studentCount: 14
-                                        -
-                                            id: 13
-                                            name: some text
-                                            studentCount: 6
+                                        id: 44
+                                        name: some text
+                                        studentCount: 14
                     description: Successful Post
             summary: POST group
     '/Groups/{id}':
@@ -381,16 +379,83 @@ paths:
                                 ID:
                                     value:
                                         -
-                                            id: 90
+                                            id: 13
                                             name: some text
-                                            studentCount: 60
+                                            studentCount: 63
                                         -
-                                            id: 36
+                                            id: 47
                                             name: some text
-                                            studentCount: 32
+                                            studentCount: 29
                     description: Success
                 '404':
                     description: Group not found
+                '500':
+                    description: SERVER ERR
+        put:
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/Groups'
+                        examples:
+                            example:
+                                value:
+                                    id: 32
+                                    name: some text
+                                    studentCount: 86
+            tags:
+                - Groups
+            parameters:
+                -
+                    examples:
+                        Mvcpe21:
+                            value: '1'
+                    name: id
+                    description: Put Groups by id
+                    schema:
+                        type: integer
+                    in: path
+                    required: true
+            responses:
+                '200':
+                    description: Id put succsessfully
+                '404':
+                    description: ID not found
+                '500':
+                    description: Server err
+        delete:
+            tags:
+                - Groups
+            parameters:
+                -
+                    examples:
+                        Mvcpe21:
+                            value: '1'
+                    name: id
+                    description: Delete Groups by id
+                    schema:
+                        type: integer
+                    in: path
+                    required: true
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/Groups'
+                            examples:
+                                Dlete id:
+                                    value:
+                                        id: 51
+                                        name: some text
+                                        studentCount: 0
+                    description: Group deleted succsessfully
+                '404':
+                    description: Group Not found
+                '500':
+                    description: Server err
         parameters:
             -
                 examples:
@@ -455,10 +520,138 @@ paths:
             tags:
                 - Users
             responses:
-                '200':
-                    description: |
-                        Users got Updated
+                '201':
+                    description: The User has been created
+                '404':
+                    description: The Post action failed
+                '500':
+                    description: Server Error
             summary: POST Users
+    '/schools/{id}':
+        get:
+            tags:
+                - School
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/schools'
+                            examples:
+                                SchoolIdGet:
+                                    value:
+                                        -
+                                            id: 3
+                                            name: Bakuustian
+                                            director: Kergi
+                                        -
+                                            id: 26
+                                            name: Mina Keskkool
+                                            director: Herman
+                    description: The schools by ID were selected
+                '404':
+                    description: There were no schools to get
+                '500':
+                    description: There was a problem with the server
+            summary: GET Schools By Id
+        put:
+            requestBody:
+                description: PUT by id
+                content:
+                    application/json:
+                        schema:
+                            type: array
+                            items: {}
+                        examples:
+                            PUT by id:
+                                value: |4
+
+                                        {
+                                            "id": 3,
+                                            "name": "Bakuustian",
+                                            "director": "Kergi"
+                                        }
+            tags:
+                - School
+            responses:
+                '202':
+                    description: The School has been updated
+                '404':
+                    description: rThe PUT has not been successfull
+                '500':
+                    description: There was an error with the server
+            summary: PUT Schools By Id
+        delete:
+            tags:
+                - School
+            responses:
+                '204':
+                    description: The School was deleted
+                '404':
+                    description: The Account was not found
+                '500':
+                    description: There was a problem with the database
+            summary: DELETE Schools By Id
+        parameters:
+            -
+                name: id
+                in: path
+                required: true
+    /schools:
+        get:
+            tags:
+                - School
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/schools'
+                            examples:
+                                Return all schools:
+                                    value:
+                                        -
+                                            id: 1
+                                            name: Goberstien Univeristy
+                                            Director: hannes paksler
+                                        -
+                                            id: 2
+                                            name: Coolguy univeristy
+                                            Director: Mihkel Hain
+                    description: |
+                        GET Schools
+                '404':
+                    description: No users were found
+                '500':
+                    description: The Server cannot be reached
+            summary: GET Schools
+        post:
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: array
+                            items: {}
+                        examples:
+                            SchoolsPutExample:
+                                value:
+                                    id: 1
+                                    name: TTHK
+                                    director: Paul Alekand
+            tags:
+                - School
+            responses:
+                '201':
+                    description: The User account was created
+                '404':
+                    description: The School failed to create
+                '500':
+                    description: The Server Failed for unknown reason
+            summary: POST Schools
 components:
     schemas:
         Error:
@@ -487,22 +680,6 @@ components:
                 id: 1
                 name: Tarpe21
                 studentCount: 16
-        Schools:
-            title: Root Type for Schools
-            description: '    '
-            type: object
-            properties:
-                id:
-                    format: int32
-                    type: integer
-                name:
-                    type: string
-                Director:
-                    type: string
-            example:
-                id: 1
-                name: TTHK
-                Director: Paul Alekand
         users:
             title: Root Type for Users
             description: '    '
@@ -522,6 +699,22 @@ components:
                 name: Bob
                 password: '1234'
                 group: GALpe20
+        schools:
+            title: Root Type for Schools
+            description: '    '
+            type: object
+            properties:
+                id:
+                    format: int32
+                    type: integer
+                name:
+                    type: string
+                director:
+                    type: string
+            example:
+                id: 1
+                name: TTHK
+                Director: Paul Alekand
         Lessons:
             title: Root Type for Lesson
             description: ''
@@ -530,14 +723,15 @@ components:
                 id:
                     format: int32
                     type: integer
-                lessonsStart:
-                    type: string
-                lesson:
+                lessonStart:
                     type: string
                 length:
+                    format: int32
+                    type: integer
+                name:
                     type: string
             example:
-                id: 1
-                lessonsStart: '9,30'
-                lesson: Programming
-                length: 45 min
+                id: 68
+                lessonStart: some text
+                name: some text
+                length: 1

@@ -4,11 +4,12 @@ const { getBaseurl } = require("./helpers")
 
 // CREATE
 exports.createNew = async (req, res) => {
-    if (!req.body.name) {
+    if (!req.body.name || !req.body.studentCount) 
+    {
         return res.status(400).send({ error: "Required parameter 'name' is missing" })
     }
     const createdGroup = await Groups.create({ ...req.body }, {
-        fields: ["name", "Students"]
+        fields: ["id","name", "studentCount"]
     })
     res.status(201)
         .location(`${getBaseurl(req)}/Groups/${createdGroup.id}`)
@@ -16,7 +17,7 @@ exports.createNew = async (req, res) => {
 }
 // READ
 exports.getAll = async (req, res) => {
-    const result = await Groups.findAll({ attributes: ["id", "group", "studentCount"] })
+    const result = await Groups.findAll({ attributes: ["id", "name", "studentCount"] })
     res.json(result)
 }
 exports.getById = async (req, res) => {
@@ -30,7 +31,7 @@ exports.getById = async (req, res) => {
 exports.editById = async (req, res) => {
     const updateResult = await Groups.update({ ...req.body }, {
         where: { id: req.params.id },
-        fields: ["name", "Students"]
+        fields: ["name", "studentCount"]
     })
     if (updateResult[0] == 0) {
         return res.status(404).send({ error: "Group not found" })
