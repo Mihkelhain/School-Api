@@ -1,4 +1,5 @@
 {
+    
   "name": "school-api",
   "version": "1.0.0",
   "description": "Tunniplaani kontrollimine on igapäevane tegu meie kõige jaoks.\r Nii et me tahtsime seda kiiremaks teha.\r Meie Api võtab kahelt lehelt,\r TTHK ja aSc EduPage informatsiooni\r et, kontole tuua tunniplaan ja tunniplaani muudatused.\r See tähendab et, sait teeb lihtsaks õpilastel vaadata oma klassi tunniplaani ja tunniplaani muudatusi.\r Sellest tuleneb küsimus et,\r Mittu korda te arvate et, õpilane vaatab tunniplaani päevas?",
