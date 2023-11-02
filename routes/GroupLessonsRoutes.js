@@ -1,4 +1,4 @@
-const GroupController = require("../controllers/GroupController.js")
+const GroupController = require("../controller/GroupController.js")
 module.exports = (app) => {
     app.route("/Groups")
         .get(GroupController.getAll)

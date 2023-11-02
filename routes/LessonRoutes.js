@@ -1,4 +1,4 @@
-const LessonsController = require("../controllers/LessonsController.js")
+const LessonsController = require("../controller/LessonsController.js")
 
 module.exports = (app) =>{
     app.route("/lessons")
