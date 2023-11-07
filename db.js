@@ -64,7 +64,7 @@ sync = async () => {
                 Director: "Paul Alekand",
             }
         })
-        console.log("school created: ", CreatedS)
+        console.log("User created: ", CreatedS)
         
 
         const [user, CreatedU] = await db.users.findOrCreate({
@@ -75,14 +75,14 @@ sync = async () => {
                 name: "Hannes Malter"
             }
         })
-        console.log("user created: ", CreatedU)
+        console.log("School Created: ", CreatedU)
         const [UserSchool, CreatedUS] = await db.UserSchools.findOrCreate({
             where: {
                 id: 1
             },
             defaults: {
                 userId: user.id,
-                schoolId: School.id,
+                schoolId: school.id,
             }
         })
         console.log("UserSchool created: ", CreatedUS)

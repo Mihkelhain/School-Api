@@ -8,7 +8,7 @@ exports.createNew = async (req, res) => {
         return res.status(400).send({ error: "One or all required parameters are missing" })
     }
     const createduser = await users.create(req.body, {
-        fields: [ "id","name","group","password"]
+        fields: ["name","group","password"]
     })
     res.status(201)
         .location(`${getBaseurl(req)}/users/${createduser.id}`)

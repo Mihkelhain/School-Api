@@ -73,7 +73,6 @@ paths:
                         examples:
                             Put Example:
                                 value:
-                                    id: 1
                                     name: Bob
                                     password: '1234'
                                     group: GALpe20
@@ -105,8 +104,7 @@ paths:
                 -
                     examples:
                         Bob:
-                            value: |
-                                1
+                            value: '1'
                     name: id
                     description: Delete Users by id
                     schema:
@@ -173,7 +171,6 @@ paths:
                         examples:
                             Example:
                                 value:
-                                    id: 52
                                     lessonStart: some text
                                     length: 21
                                     name: some text
@@ -233,7 +230,6 @@ paths:
                         examples:
                             example:
                                 value:
-                                    id: 44
                                     lessonStart: some text
                                     length: 68
                                     name: some text
@@ -331,7 +327,6 @@ paths:
                         examples:
                             eXAMPLE:
                                 value:
-                                    id: 95
                                     name: some text
                                     studentCount: 4
             tags:
@@ -400,7 +395,6 @@ paths:
                         examples:
                             example:
                                 value:
-                                    id: 32
                                     name: some text
                                     studentCount: 86
             tags:
@@ -513,7 +507,6 @@ paths:
                         examples:
                             UsersPost:
                                 value:
-                                    id: 1
                                     name: Bob
                                     password: '1234'
                                     group: GALpe20
@@ -566,13 +559,9 @@ paths:
                             items: {}
                         examples:
                             PUT by id:
-                                value: |4
-
-                                        {
-                                            "id": 3,
-                                            "name": "Bakuustian",
-                                            "director": "Kergi"
-                                        }
+                                value:
+                                    name: Bakuustian
+                                    director: Kergi
             tags:
                 - School
             responses:
@@ -639,7 +628,6 @@ paths:
                         examples:
                             SchoolsPutExample:
                                 value:
-                                    id: 1
                                     name: TTHK
                                     director: Paul Alekand
             tags:

@@ -31,7 +31,7 @@ exports.getById = async (req, res) => {
 exports.editById = async (req, res) => {
     const updateResult = await schools.update({ ...req.body }, {
         where: { id: req.params.id },
-        fields: ["id","name", "director"]
+        fields: ["name", "director"]
     })
     if (updateResult[0] == 0) {
         return res.status(404).send({ error: "School not found" })
