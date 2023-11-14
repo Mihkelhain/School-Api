@@ -158,6 +158,27 @@ paths:
                                             length: 81
                                             name: some text
                     description: Succsessfuly Get
+                '400':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/Lessons'
+                            examples:
+                                Get id example:
+                                    value:
+                                        -
+                                            id: 5
+                                            lessonStart: some text
+                                            length: 94
+                                            name: some text
+                                        -
+                                            id: 35
+                                            lessonStart: some text
+                                            length: 81
+                                            name: some text
+                    description: Could not get Lesson
                 '404':
                     description: Lesson not found
                 '500':
@@ -180,6 +201,8 @@ paths:
             responses:
                 '201':
                     description: Successful Post
+                '400':
+                    description: Could not create Lesson
                 '404':
                     description: Not found
             summary: Post lesson
@@ -220,6 +243,27 @@ paths:
                                             length: 57
                                             name: some text
                     description: Successful Get
+                '400':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/Lessons'
+                            examples:
+                                ID:
+                                    value:
+                                        -
+                                            id: 78
+                                            lessonStart: some text
+                                            length: 49
+                                            name: some text
+                                        -
+                                            id: 18
+                                            lessonStart: some text
+                                            length: 57
+                                            name: some text
+                    description: Could not get lesson id
                 '404':
                     description: Could not find Lesson
         put:
@@ -346,6 +390,23 @@ paths:
                                                 "studentCount": 52
                                             }
                     description: Successful Get
+                '400':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/Groups'
+                            examples:
+                                Get all groups:
+                                    value: |4-
+
+                                            {
+                                                "id": 78,
+                                                "name": "some text",
+                                                "studentCount": 52
+                                            }
+                    description: Could not get Group
                 '404':
                     description: Group no found
                 '500':
@@ -379,6 +440,20 @@ paths:
                                         name: some text
                                         studentCount: 14
                     description: Successful Post
+                '400':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/Groups'
+                            examples:
+                                Post Group:
+                                    value:
+                                        id: 44
+                                        name: some text
+                                        studentCount: 14
+                    description: Could not create group
             summary: POST group
     '/Groups/{id}':
         get:
@@ -415,6 +490,25 @@ paths:
                                             name: some text
                                             studentCount: 29
                     description: Success
+                '400':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/Groups'
+                            examples:
+                                ID:
+                                    value:
+                                        -
+                                            id: 13
+                                            name: some text
+                                            studentCount: 63
+                                        -
+                                            id: 47
+                                            name: some text
+                                            studentCount: 29
+                    description: Could not get id
                 '404':
                     description: Group not found
                 '500':
@@ -448,6 +542,8 @@ paths:
                     description: Id put succsessfully
                 '202':
                     description: Request accepted
+                '400':
+                    description: Could not put id
                 '404':
                     description: ID not found
                 '500':
@@ -551,8 +647,8 @@ paths:
             responses:
                 '201':
                     description: The User has been created
-                '404':
-                    description: The Post action failed
+                '400':
+                    description: The User couldnt be created
                 '500':
                     description: Server Error
             summary: POST Users
@@ -689,8 +785,8 @@ paths:
                                 items:
                                     $ref: '#/components/schemas/schools'
                     description: The User account was created
-                '404':
-                    description: The School failed to create
+                '400':
+                    description: The School couldnt be added
                 '500':
                     description: The Server Failed for unknown reason
             summary: POST Schools
