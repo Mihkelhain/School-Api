@@ -73,7 +73,6 @@ paths:
                         examples:
                             Put Example:
                                 value:
-                                    id: 1
                                     name: Bob
                                     password: '1234'
                                     group: GALpe20
@@ -104,11 +103,11 @@ paths:
             parameters:
                 -
                     examples:
-                        Bob:
-                            value: |
-                                1
+                        john marston:
+                            value: '4'
                     name: id
-                    description: Delete Users by id
+                    description: |
+                        Get all users by id
                     schema:
                         type: integer
                     in: path
@@ -173,7 +172,6 @@ paths:
                         examples:
                             Example:
                                 value:
-                                    id: 52
                                     lessonStart: some text
                                     length: 21
                                     name: some text
@@ -233,9 +231,8 @@ paths:
                         examples:
                             example:
                                 value:
-                                    id: 44
                                     lessonStart: some text
-                                    length: 68
+                                    length: 34
                                     name: some text
             tags:
                 - Lessons
@@ -253,6 +250,10 @@ paths:
             responses:
                 '200':
                     description: Succsess
+                '202':
+                    description: request accepted
+                '204':
+                    description: No Content
                 '404':
                     description: Id not found
                 '500':
@@ -279,7 +280,35 @@ paths:
                                 type: array
                                 items:
                                     $ref: '#/components/schemas/Lessons'
+                            examples:
+                                Delete example:
+                                    value: |4-
+
+                                            {
+                                                "id": 58,
+                                                "lessonStart": "some text",
+                                                "length": 86,
+                                                "name": "some text"
+                                            }
                     description: Id Deleted Succsessfully
+                '204':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/Lessons'
+                            examples:
+                                Delete example:
+                                    value: |4-
+
+                                            {
+                                                "id": 58,
+                                                "lessonStart": "some text",
+                                                "length": 86,
+                                                "name": "some text"
+                                            }
+                    description: No Content
                 '404':
                     description: Id not found
                 '500':
@@ -331,7 +360,6 @@ paths:
                         examples:
                             eXAMPLE:
                                 value:
-                                    id: 95
                                     name: some text
                                     studentCount: 4
             tags:
@@ -400,7 +428,6 @@ paths:
                         examples:
                             example:
                                 value:
-                                    id: 32
                                     name: some text
                                     studentCount: 86
             tags:
@@ -419,6 +446,8 @@ paths:
             responses:
                 '200':
                     description: Id put succsessfully
+                '202':
+                    description: Request accepted
                 '404':
                     description: ID not found
                 '500':
@@ -438,7 +467,7 @@ paths:
                     in: path
                     required: true
             responses:
-                '200':
+                '204':
                     content:
                         application/json:
                             schema:
@@ -513,10 +542,10 @@ paths:
                         examples:
                             UsersPost:
                                 value:
-                                    id: 1
                                     name: Bob
                                     password: '1234'
                                     group: GALpe20
+                required: true
             tags:
                 - Users
             responses:
@@ -566,15 +595,22 @@ paths:
                             items: {}
                         examples:
                             PUT by id:
-                                value: |4
-
-                                        {
-                                            "id": 3,
-                                            "name": "Bakuustian",
-                                            "director": "Kergi"
-                                        }
+                                value:
+                                    name: Bakuustian
+                                    director: Kergi
             tags:
                 - School
+            parameters:
+                -
+                    examples:
+                        IdExample:
+                            value: '14'
+                    name: id
+                    description: putSchoolsByID
+                    schema:
+                        type: integer
+                    in: path
+                    required: true
             responses:
                 '202':
                     description: The School has been updated
@@ -639,13 +675,19 @@ paths:
                         examples:
                             SchoolsPutExample:
                                 value:
-                                    id: 1
                                     name: TTHK
                                     director: Paul Alekand
+                required: true
             tags:
                 - School
             responses:
                 '201':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/schools'
                     description: The User account was created
                 '404':
                     description: The School failed to create

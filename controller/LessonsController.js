@@ -38,7 +38,7 @@ exports.editById = async (req, res) => {
     if (updateResult[0] == 0) {
         return res.status(404).send({ "error": "Lesson not found" })
     }
-    res.status(204)
+    res.status(202)
         .location(`${getBaseurl(req)}/Lessons/${req.params.id}`)
         .send()
 }
