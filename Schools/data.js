@@ -6,7 +6,7 @@ let schools = [
 ]
 
 exports.getAll = () => {
-    return data.map(g => { return { "id": g.id , "name": g.name , "director": g.director } })
+    return data.map(g => { return { "id": g.id, "name": g.name, "director": g.director } })
 }
 exports.getById = (id) => {
     return data.find((thing) => thing.id == parseInt(id))

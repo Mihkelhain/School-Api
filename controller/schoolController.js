@@ -3,17 +3,16 @@ const schools = db.schools
 const { getBaseurl } = require("./helpers")
 
 // CREATE
-exports.createNew = (req, res) => {
-    if (!req.body.name || !req.body.director ) {
-        return res.status(400).send({ error: "Required parameter 'name' or 'Director' is missing" })
+exports.createNew = async (req, res) => {
+    if (!req.body.name || !req.body.director) {
+        return res.status(400).send({ error: "One or all required parameters are missing" })
     }
-    const createdschool = schools.create({
-        name: req.body.name,
-        director: req.body.director
+    const createdSchool = await schools.create(req.body, {
+        fields: ["name","director"]
     })
     res.status(201)
-        .location(`${getBaseurl(req)}/schools/${createdschool.id}`)
-        .send(createdschool)
+        .location(`${getBaseurl(req)}/schools/${createdSchool.id}`)
+        .json(createdSchool)
 }
 // READ
 exports.getAll = async (req, res) => {

@@ -1,5 +1,6 @@
 const { Sequelize } = require("sequelize");
 const School = require("./models/School");
+const User = require("./models/User");
 const sequelize = new Sequelize(process.env.DATABASE, process.env.DB_USER, process.env.DB_PASS, {
     host: process.env.DB_HOST,
     dialect: "mariadb",
@@ -46,7 +47,7 @@ db.UserSchools.belongsTo(db.users)
 
 
 sync = async () => {
-    if (process.env.DROP_DB) {
+    if (process.env.DROP_DB === "true") {
         console.log("Begin DROP")
         await db.connection.query('SET FOREIGN_KEY_CHECKS = 0')
         console.log("Checks disabled")
@@ -55,34 +56,66 @@ sync = async () => {
         await db.connection.query('SET FOREIGN_KEY_CHECKS = 1')
         console.log("Checks enabled")
 
-        const [School, CreatedS] = await db.schools.findOrCreate({
+        const [createdSchool, CreatedS] = await db.schools.findOrCreate({
             where: {
                 name: "TTHK"
             },
             defaults: {
                 name: "TTHK",
-                Director: "Paul Alekand",
+                director: "Paul Alekand",
             }
         })
         console.log("school created: ", CreatedS)
         
 
-        const [user, CreatedU] = await db.users.findOrCreate({
+        const [createdUser, CreatedU] = await db.users.findOrCreate({
             where: {
                 name: "Hannes Malter"
+               
             },
             defaults: {
-                name: "Hannes Malter"
+                name: "Hannes Malter",
+                password:"Aj!fbij51",
+                group: "TARpe21"
             }
         })
-        console.log("user created: ", CreatedU)
+        console.log("School Created: ", CreatedU)
+
+        const [createdLesson, CreatedL] = await db.lessons.findOrCreate({
+            where: {
+                name: "BoogieBomb101"
+               
+            },
+            defaults: {
+                name: "BoogieBomb101",
+                length:"45",
+                lessonStart:"8:30",
+            }
+        })
+        console.log("Lesson Created: ", CreatedL)
+
+        const [createdGroup, CreatedG] = await db.groups.findOrCreate({
+            where: {
+                name: "TARpe21"
+               
+            },
+            defaults: {
+                name: "TARpe21",
+                studentCount:"14"
+
+            }
+        })
+        console.log("Group Created: ", CreatedG)
+
         const [UserSchool, CreatedUS] = await db.UserSchools.findOrCreate({
             where: {
                 id: 1
             },
             defaults: {
-                userId: user.id,
-                schoolId: School.id,
+                UserId: createdUser.id,
+                SchoolId: createdSchool.id,
+                groupId: createdGroup.id,
+                lessonId: createdLesson.id
             }
         })
         console.log("UserSchool created: ", CreatedUS)
