@@ -2,14 +2,18 @@ export default {
     /*html*/
     template: `
     <table id="schoolsTable" class="table table-striped table-bordered">
-        <tr>
-            <th>Name</th>
-            <th>director</th>
-        </tr>
-        <tr v-for="school in schools">
-            <td @click="getSchool(school.id)">{{ school.name }}</td>
-            <td>{{ school.director }}</td>
-        </tr>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>director</th>
+    </tr>
+</thead>
+<tbody>
+    <tr v-for="school in schools">
+        <td @click="getSchool(school.id)">{{ school.name }}</td>
+        <td>{{ school.director }}</td>
+    </tr>
+</tbody>
     </table>
     `,
     emits: ["showModal"],

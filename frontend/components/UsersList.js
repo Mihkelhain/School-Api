@@ -2,12 +2,16 @@ export default {
     /*html*/
     template: `
     <table id="usersTable" class="table table-striped table-bordered">
-        <tr>
-            <th>Name</th>
-        </tr>
-        <tr v-for="user in users">
-            <td @click="getUser(user.id)">{{ user.name }}</td>
-        </tr>
+    <thead>
+    <tr>
+        <th>Name</th>
+    </tr>
+</thead>
+<tbody>
+    <tr v-for="user in users">
+        <td @click="getUser(user.id)">{{ user.name }}</td>
+    </tr>
+</tbody>
     </table>
     `,
     emits: ["showModal"],

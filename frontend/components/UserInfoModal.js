@@ -20,7 +20,7 @@ export default {
                     </tr>
                     <tr>
                         <th>group</th>
-                        <td v-if="isEditing"><input v-model="modifiedUser.price"></td>
+                        <td v-if="isEditing"><input v-model="modifiedUser.grouü"></td>
                         <td v-else>{{userInModal.group}}</td>
                     </tr>
                 </table>
