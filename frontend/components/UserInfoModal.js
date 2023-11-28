@@ -19,8 +19,8 @@ export default {
                         <td v-else>{{userInModal.name}}</td>
                     </tr>
                     <tr>
-                        <th>group</th>
-                        <td v-if="isEditing"><input v-model="modifiedUser.grouü"></td>
+                        <th>Group</th>
+                        <td v-if="isEditing"><input v-model="modifiedUser.group"></td>
                         <td v-else>{{userInModal.group}}</td>
                     </tr>
                 </table>
@@ -40,6 +40,7 @@ export default {
 </div>
     `,
     emits: ["UserUpdated"],
+    emits: ["UserDeleted"],
     props: {
         userInModal: {}
     },
@@ -67,9 +68,25 @@ export default {
                 },
                 body: JSON.stringify(this.modifiedUser)
             });
+        
             console.log(rawResponse);
             this.$emit("UserUpdated", this.modifiedUser)
             this.isEditing = false
-        }
+        },
+        // async deleteModifiedUser() {
+        //     console.log("Deleting:", this.modifiedUser)
+        //     const rawResponse = await fetch(this.API_URL + "/Users/" + this.modifiedUser.id, {
+        //         method: 'DELETE',
+        //         headers: {
+        //             'Accept': 'application/json',
+        //             'Content-Type': 'application/json'
+        //         },
+        //         body: JSON.stringify(this.modifiedUser)
+        //     });
+        
+        //     console.log(rawResponse);
+        //     this.$emit("UserDeleted", this.modifiedUser)
+        //     this.isEditing = false
+        // }
     }
 }

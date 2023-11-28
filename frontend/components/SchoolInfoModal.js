@@ -20,8 +20,8 @@ export default {
                         <td v-else>{{schoolInModal.name}}</td>
                     </tr>
                     <tr>
-                        <th>director</th>
-                        <td v-if="isEditing"><input v-model="modifiedSchool.price"></td>
+                        <th>Director</th>
+                        <td v-if="isEditing"><input v-model="modifiedSchool.director"></td>
                         <td v-else>{{schoolInModal.director}}</td>
                     </tr>
                 </table>
@@ -51,12 +51,13 @@ export default {
         </div>
     </div>
 </div>
-<confirmation-modal :target="'#schoolInfoModal'" @confirmed="deleteGame"></confirmation-modal>
+<confirmation-modal :target="'#schoolInfoModal'" @confirmed="deleteModifiedSchool"></confirmation-modal>
     `,
     components: {
         confirmationModal
     },
     emits: ["SchoolUpdated"],
+    emits: ["SchoolDeleted"],
     props: {
         schoolInModal: {}
     },
@@ -88,8 +89,19 @@ export default {
             this.$emit("SchoolUpdated", this.modifiedSchool)
             this.isEditing = false
         },
-        deleteGame() {
-            console.log("DELETE confirmed");
+        async deleteModifiedSchool() {
+            console.log("Saving:", this.modifiedSchool)
+            const rawResponse = await fetch(this.API_URL + "/Schools/" + this.modifiedSchool.id, {
+                method: 'DELETE',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(this.modifiedSchool)
+            });
+            console.log(rawResponse);
+            this.$emit("SchoolDeleted", this.modifiedSchool)
+            this.isEditing = false
         }
     }
 }

@@ -10,6 +10,7 @@ export default {
 <tbody>
     <tr v-for="user in users">
         <td @click="getUser(user.id)">{{ user.name }}</td>
+        <td @click="getUser(user.id)">{{ user.group }}</td>
     </tr>
 </tbody>
     </table>
