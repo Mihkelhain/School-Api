@@ -11,7 +11,7 @@ export default {
 <tbody>
     <tr v-for="group in groups">
         <td @click="getgroup(group.id)">{{ group.name }}</td>
-        <td>{{ group.director }}</td>
+        <td>{{ group.studentCount }}</td>
     </tr>
 </tbody>
     </table>

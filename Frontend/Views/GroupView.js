@@ -1,4 +1,4 @@
-import GroupsList from "../components/GroupsList.js"
+import GroupsList from "../components/Grouplist.js"
 import GroupInfoModal from "../components/GroupInfoModal.js"
 export default {
     /*html*/

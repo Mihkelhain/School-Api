@@ -4,12 +4,16 @@ export default {
     <table id="lessonsTable" class="table table-striped table-bordered">
     <thead>
     <tr>
-        <th>Name</th>
+        <th>lessonStart</th>
+        <th>name</th>
+        <th>length</th>
     </tr>
 </thead>
 <tbody>
     <tr v-for="lessons in lessons">
-        <td @click="getlessons(lessons.id)">{{ lessons.name }}</td>
+        <td @click="getlessons(lessons.id)">{{ lessons.lessonStart }}</td>
+        <td>{{ group.name }}</td>
+        <td>{{ group.length }}</td>
     </tr>
 </tbody>
     </table>
