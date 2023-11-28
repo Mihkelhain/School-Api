@@ -13,7 +13,7 @@ export default {
     data() {
         return {
             update: 0,
-            LessonInModal: { id: "", name: "", director: "" }
+            LessonInModal: { id: "",lessonStart: "" ,name: "", length: "" }
         }
     },
     methods: {

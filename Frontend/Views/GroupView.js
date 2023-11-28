@@ -13,7 +13,7 @@ export default {
     data() {
         return {
             update: 0,
-            groupInModal: { id: "", name: "", group: ""}
+            groupInModal: { id: "", name: "", studentCount: ""}
         }
     },
     methods: {
