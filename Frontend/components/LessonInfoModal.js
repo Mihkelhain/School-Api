@@ -36,13 +36,14 @@ export default {
             <div class="row">
                 <template v-if="isEditing">
                     <div class="col me-auto">
-                        <button type="button" class="btn btn-danger" data-bs-target="#confirmationModal" data-bs-toggle="modal">Delete</button>
+                        <button type="button" class="btn btn-danger" data-bs-target="#ConfirmationModal" data-bs-toggle="modal">Delete</button>
                     </div>
                     <div class="col-auto">
                         <button type="button" class="btn btn-success mx-2" @click="saveModifiedLesson">Save</button>
                         <button type="button" class="btn btn-secondary" @click="cancelEditing">Cancel</button>
                     </div>
                 </template>
+
                 <template v-else>
                     <div class="col me-auto"></div>
                     <div class="col-auto">
@@ -61,8 +62,7 @@ export default {
     components: {
         confirmationModal
     },
-    emits: ["LessonUpdated"],
-    emits: ["LessonDeleted"],
+    emits: ["lessonUpdated", "LessonDeleted"],
     props: {
         lessonInModal: {}
     },
@@ -91,7 +91,7 @@ export default {
                 body: JSON.stringify(this.modifiedLesson)
             });
             console.log(rawResponse);
-            this.$emit("LessonUpdated", this.modifiedLesson)
+            this.$emit("lessonUpdated", this.modifiedLesson)
             this.isEditing = false
         },
         async deleteModifiedLesson() {

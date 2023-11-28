@@ -1,30 +1,30 @@
-import LessonsList from "../components/Lessonlist.js"
-import LessonInfoModal from "../components/LessonInfoModal.js"
+import lessonsList from "../components/Lessonlist.js"
+import lessonInfoModal from "../components/LessonInfoModal.js"
 export default {
     /*html*/
     template: `
-    <Lessons-list :key="update" @showModal="openModalLesson"></Lessons-list>
-    <Lesson-info-modal @LessonUpdated="updateViewLesson" :LessonInModal="LessonInModal"></Lesson-info-modal>
+    <lessons-list :key="update" @showModal="openModalLesson"></lessons-list>
+    <lesson-info-modal @lessonUpdated="updateViewLesson" :lessonInModal="lessonInModal"></lesson-info-modal>
     `,
     components: {
-        LessonsList,
-        LessonInfoModal
+        lessonsList,
+        lessonInfoModal
     },
     data() {
         return {
             update: 0,
-            LessonInModal: { id: "",lessonStart: "" ,name: "", length: 0 }
+            lessonInModal: { id: "",lessonStart: "" ,name: "", length: 0 }
         }
     },
     methods: {
-        openModalLesson(Lesson) {
-            this.LessonInModal = Lesson
-            let LessonInfoModal = new bootstrap.Modal(document.getElementById("LessonInfoModal"))
-            LessonInfoModal.show()
+        openModalLesson(lesson) {
+            this.lessonInModal = lesson
+            let lessonInfoModal = new bootstrap.Modal(document.getElementById("LessonInfoModal"))
+            lessonInfoModal.show()
         },
-        updateViewLesson(Lesson) {
+        updateViewLesson(lesson) {
             this.update++
-            this.LessonInModal = Lesson
+            this.lessonInModal = lesson
         }
     } 
 }

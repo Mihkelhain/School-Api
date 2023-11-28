@@ -114,8 +114,6 @@ sync = async () => {
             defaults: {
                 UserId: createdUser.id,
                 SchoolId: createdSchool.id,
-                groupId: createdGroup.id,
-                lessonId: createdLesson.id
             }
         })
         console.log("UserSchool created: ", CreatedUS)

@@ -11,9 +11,9 @@ export default {
 </thead>
 <tbody>
     <tr v-for="lessons in lessons">
-        <td @click="getlessons(lessons.id)">{{ lesson.lessonStart }}</td>
-        <td>{{ lesson.name }}</td>
-        <td>{{ lesson.length }}</td>
+        <td @click="getlessons(lessons.id)">{{ lessons.lessonStart }}</td>
+        <td>{{ lessons.name }}</td>
+        <td>{{ lessons.length }}</td>
     </tr>
 </tbody>
     </table>
@@ -29,8 +29,8 @@ export default {
     },
     methods: {
         getlessons: async function (id) {
-            const lessonsInModal = await (await fetch(this.API_URL + "/lessons/" + id)).json()
-            this.$emit("showModal", lessonsInModal)
+            const lessonInModal = await (await fetch(this.API_URL + "/Lessons/" + id)).json()
+            this.$emit("showModal", lessonInModal)
         }
     }
 }
