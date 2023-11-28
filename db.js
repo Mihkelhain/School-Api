@@ -114,6 +114,15 @@ sync = async () => {
             defaults: {
                 UserId: createdUser.id,
                 SchoolId: createdSchool.id,
+            }
+        })
+        console.log("UserSchool created: ", CreatedUS)
+
+        const [LessonGroup, CreateLG] = await db.LessonGroup.findOrCreate({
+            where: {
+                id: 1
+            },
+            defaults: {
                 groupId: createdGroup.id,
                 lessonId: createdLesson.id
             }
