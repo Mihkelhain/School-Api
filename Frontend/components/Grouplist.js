@@ -4,8 +4,8 @@ export default {
     <table id="groupsTable" class="table table-striped table-bordered">
     <thead>
     <tr>
-        <th>Name</th>
-        <th>director</th>
+        <th>name</th>
+        <th>studentCount</th>
     </tr>
 </thead>
 <tbody>
