@@ -1,7 +1,7 @@
 export default {
     /*html*/
     template: `
-<div id="userInfoModal" class="modal" tabindex="-1">
+<div id="lessonInfoModal" class="modal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -11,23 +11,23 @@ export default {
                 <table class="table table-striped">
                     <tr>
                         <th>Id</th>
-                        <td>{{userInModal.id}}</td>
+                        <td>{{lessonInModal.id}}</td>
                     </tr>
                     <tr>
                         <th>Name</th>
-                        <td v-if="isEditing"><input v-model="modifiedUser.name"></td>
-                        <td v-else>{{userInModal.name}}</td>
+                        <td v-if="isEditing"><input v-model="modifiedLesson.name"></td>
+                        <td v-else>{{lessonInModal.name}}</td>
                     </tr>
                     <tr>
                         <th>group</th>
-                        <td v-if="isEditing"><input v-model="modifiedUser.price"></td>
-                        <td v-else>{{userInModal.group}}</td>
+                        <td v-if="isEditing"><input v-model="modifiedLesson.price"></td>
+                        <td v-else>{{lessonInModal.group}}</td>
                     </tr>
                 </table>
             </div>
             <div class="modal-footer">
                 <template v-if="isEditing">
-                    <button type="button" class="btn btn-success" @click="saveModifiedUser">Save</button>
+                    <button type="button" class="btn btn-success" @click="saveModifiedLesson">Save</button>
                     <button type="button" class="btn btn-secondary" @click="cancelEditing">Cancel</button>
                 </template>
                 <template v-else>
@@ -39,36 +39,36 @@ export default {
     </div>
 </div>
     `,
-    emits: ["UserUpdated"],
+    emits: ["LessonUpdated"],
     props: {
-        userInModal: {}
+        lessonInModal: {}
     },
     data() {
         return {
             isEditing: false,
-            modifiedUser: {}
+            modifiedLesson: {}
         }
     },
     methods: {
         startEditing() {
-            this.modifiedUser = { ...this.userInModal }
+            this.modifiedLesson = { ...this.lessonInModal }
             this.isEditing = true
         },
         cancelEditing() {
             this.isEditing = false
         },
-        async saveModifiedUser() {
-            console.log("Saving:", this.modifiedUser)
-            const rawResponse = await fetch(this.API_URL + "/Users/" + this.modifiedUser.id, {
+        async saveModifiedLesson() {
+            console.log("Saving:", this.modifiedLesson)
+            const rawResponse = await fetch(this.API_URL + "/Lessons/" + this.modifiedLesson.id, {
                 method: 'PUT',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(this.modifiedUser)
+                body: JSON.stringify(this.modifiedLesson)
             });
             console.log(rawResponse);
-            this.$emit("UserUpdated", this.modifiedUser)
+            this.$emit("LessonUpdated", this.modifiedLesson)
             this.isEditing = false
         }
     }

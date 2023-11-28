@@ -1,7 +1,7 @@
 export default {
     /*html*/
     template: `
-<div id="GroupInfoModal" class="modal" tabindex="-1">
+<div id="groupInfoModal" class="modal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -19,7 +19,7 @@ export default {
                         <td v-else>{{GroupInModal.name}}</td>
                     </tr>
                     <tr>
-                        <th>director</th>
+                        <th>director</th>saveModifiedGroup
                         <td v-if="isEditing"><input v-model="modifiedGroup.price"></td>
                         <td v-else>{{GroupInModal.director}}</td>
                     </tr>
@@ -27,7 +27,7 @@ export default {
             </div>
             <div class="modal-footer">modifiedGroup
                 <template v-if="isEditing">
-                    <button type="button" class="btn btn-success" @click="saveModifiedSchool">Save</button>
+                    <button type="button" class="btn btn-success" @click="saveModifiedGroup">Save</button>
                     <button type="button" class="btn btn-secondary" @click="cancelEditing">Cancel</button>
                 </template>
                 <template v-else>
@@ -57,7 +57,7 @@ export default {
         cancelEditing() {
             this.isEditing = false
         },
-        async saveModifiedSchool() {
+        async saveModifiedGroup() {
             console.log("Saving:", this.modifiedGroup)
             const rawResponse = await fetch(this.API_URL + "/Groups/" + this.modifiedGroup.id, {
                 method: 'PUT',
