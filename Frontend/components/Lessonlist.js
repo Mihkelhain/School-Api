@@ -11,9 +11,9 @@ export default {
 </thead>
 <tbody>
     <tr v-for="lessons in lessons">
-        <td @click="getlessons(lessons.id)">{{ lessons.lessonStart }}</td>
-        <td>{{ group.name }}</td>
-        <td>{{ group.length }}</td>
+        <td @click="getlessons(lessons.id)">{{ lesson.lessonStart }}</td>
+        <td>{{ lesson.name }}</td>
+        <td>{{ lesson.length }}</td>
     </tr>
 </tbody>
     </table>
