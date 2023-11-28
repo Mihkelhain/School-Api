@@ -73,20 +73,20 @@ export default {
             this.$emit("UserUpdated", this.modifiedUser)
             this.isEditing = false
         },
-        // async deleteModifiedUser() {
-        //     console.log("Deleting:", this.modifiedUser)
-        //     const rawResponse = await fetch(this.API_URL + "/Users/" + this.modifiedUser.id, {
-        //         method: 'DELETE',
-        //         headers: {
-        //             'Accept': 'application/json',
-        //             'Content-Type': 'application/json'
-        //         },
-        //         body: JSON.stringify(this.modifiedUser)
-        //     });
+         async deleteModifiedUser() {
+            console.log("Deleting:", this.modifiedUser)
+             const rawResponse = await fetch(this.API_URL + "/Users/" + this.modifiedUser.id, {
+                 method: 'DELETE',
+                 headers: {
+                     'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                 },
+                 body: JSON.stringify(this.modifiedUser)
+             });
         
-        //     console.log(rawResponse);
-        //     this.$emit("UserDeleted", this.modifiedUser)
-        //     this.isEditing = false
-        // }
+             console.log(rawResponse);
+             this.$emit("UserDeleted", this.modifiedUser)
+             this.isEditing = false
+         }
     }
 }

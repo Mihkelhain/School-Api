@@ -5,6 +5,7 @@ export default {
     <thead>
     <tr>
         <th>Name</th>
+        <th>Group</th>
     </tr>
 </thead>
 <tbody>
