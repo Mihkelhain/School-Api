@@ -33,6 +33,9 @@ export default {
             </div>
             <div class="modal-footer">
                 <template v-if="isEditing">
+                <div class="col me-auto">
+                                <button type="button" class="btn btn-danger" data-bs-target="#confirmationModal" data-bs-toggle="modal">Delete</button>
+                            </div>
                     <button type="button" class="btn btn-success" @click="saveModifiedlesson">Save</button>
                     <button type="button" class="btn btn-secondary" @click="cancelEditing">Cancel</button>
                 </template>
@@ -44,7 +47,11 @@ export default {
         </div>
     </div>
 </div>
+<confirmation-modal :target="'#lessonInfoModal'" @confirmed="deletelesson"></confirmation-modal>
     `,
+    components: {
+        confirmationModal
+    },
     emits: ["lessonUpdated"],
     props: {
         lessonInModal: {}
@@ -73,6 +80,21 @@ export default {
                 },
                 body: JSON.stringify(this.modifiedlesson)
             });
+            console.log(rawResponse);
+            this.$emit("lessonUpdated", this.modifiedlesson)
+            this.isEditing = false
+        },
+        async deletelesson() {
+           console.log("Deleting:", this.modifiedlesson)
+            const rawResponse = await fetch(this.API_URL + "/lessons/" + this.modifiedlesson.id, {
+                method: 'DELETE',
+                headers: {
+                    'Accept': 'application/json',
+                   'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(this.modifiedlesson)
+            });
+       
             console.log(rawResponse);
             this.$emit("lessonUpdated", this.modifiedlesson)
             this.isEditing = false

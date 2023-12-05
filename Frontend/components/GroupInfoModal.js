@@ -28,6 +28,9 @@ export default {
             </div>
             <div class="modal-footer">
                 <template v-if="isEditing">
+                <div class="col me-auto">
+                                   <button type="button" class="btn btn-danger" data-bs-target="#confirmationModal" data-bs-toggle="modal">Delete</button>
+                               </div>
                     <button type="button" class="btn btn-success" @click="saveModifiedgroup">Save</button>
                     <button type="button" class="btn btn-secondary" @click="cancelEditing">Cancel</button>
                 </template>
@@ -39,7 +42,11 @@ export default {
         </div>
     </div>
 </div>
+<confirmation-modal :target="'#groupInfoModal'" @confirmed="deletegroup"></confirmation-modal>
     `,
+    components: {
+        confirmationModal
+    },
     emits: ["groupUpdated"],
     props: {
         groupInModal: {}
@@ -71,6 +78,20 @@ export default {
             console.log(rawResponse);
             this.$emit("groupUpdated", this.modifiedgroup)
             this.isEditing = false
+        },
+        async deletegroup(){
+            console.log("Deleting:", this.modifiedgroup);
+                const rawResponse = await fetch(this.API_URL + "/groups/" + this.modifiedgroup.id, {
+                    method: 'DELETE',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(this.modifiedgroup)
+                });
+                    console.log(rawResponse);
+                    this.$emit("groupUpdated", this.modifiedgroup)
+                    this.isEditing = false
         }
     }
 } 
