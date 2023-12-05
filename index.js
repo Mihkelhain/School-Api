@@ -18,8 +18,6 @@ require("./routes/GroupLessonsRoutes")(app)
 require("./routes/userRoutes")(app)
 require("./routes/SchoolRoutes")(app)
 require("./routes/UserSchoolRoutes")(app)
-
-
 app.listen(port, () => {
     require("./db").sync()
         .then(console.log("Synchronized"))

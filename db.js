@@ -114,6 +114,7 @@ sync = async () => {
             defaults: {
                 UserId: createdUser.id,
                 SchoolId: createdSchool.id,
+<<<<<<< HEAD
             }
         })
         console.log("UserSchool created: ", CreatedUS)
@@ -125,6 +126,8 @@ sync = async () => {
             defaults: {
                 groupId: createdGroup.id,
                 lessonId: createdLesson.id
+=======
+>>>>>>> FrontEndDesign
             }
         })
         console.log("UserSchool created: ", CreatedUS)
