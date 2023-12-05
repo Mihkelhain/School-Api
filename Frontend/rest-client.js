@@ -4,11 +4,15 @@ import App from './App.js'
 
 import GroupView from './Views/GroupView.js'
 import LessonView from './Views/LessonView.js'
+import UserView from './Views/UserView.js'
+import SchoolView from './Views/SchoolView.js'
 //import LessonView from './views/LessonView.js'
 
 const routes = [
     { path: "/lessons", component: LessonView },
-    { path: "/groups", component: GroupView }
+    { path: "/groups", component: GroupView },
+    { path: "/users", component: UserView },
+    { path: "/schools", component: SchoolView }
 ]
 
 const router = createRouter({

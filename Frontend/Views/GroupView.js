@@ -9,7 +9,7 @@ export default {
     <group-list :key="update" @showModal="openModalGroup"></group-list>
     <group-info-modal @groupUpdated="updateViewGroup" :groupInModal="groupInModal"></group-info-modal>
     <new-object-modal id="newGroupModal" @save="saveNewGroup">
-        <group-form v-model:groupStart="groupInModal.groupStart" v-model:name="groupInModal.name" v-model:length="groupInModal.length" ></group-form>
+        <group-form v-model:groupStart="groupInModal.groupStart" v-model:name="groupInModal.name" v-model:studentCount="groupInModal.studentCount" ></group-form>
         <div class="alert alert-danger" role="alert" v-show="error">{{error}}</div>
     </new-object-modal>
     `,
