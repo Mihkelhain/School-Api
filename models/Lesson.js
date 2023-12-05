@@ -11,7 +11,7 @@ module.exports = (dbConnection, Sequelize)=>{
         },
         name: {
             type: Sequelize.STRING,
-            allowNull: false
+            allowNull: true
         },
         length: {
             type: Sequelize.INTEGER,

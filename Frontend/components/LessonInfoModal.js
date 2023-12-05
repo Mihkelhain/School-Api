@@ -10,103 +10,72 @@ export default {
             </div>
             <div class="modal-body">
                 <table class="table table-striped">
-                    <tr>
-                        <th>Id</th>
-                        <td>{{lessonInModal.id}}</td>
+                <tr>
+                    <th>Id</th>
+                    <td>{{lessonInModal.id}}</td>
                     </tr>
-                    <tr>
-                        <th>lessonStart</th>
-                        <td v-if="isEditing"><input v-model="modifiedLesson.lessonStart"></td>
-                        <td v-else>{{lessonInModal.lessonStart}}</td>
-                    </tr>
-                    <tr>
-                        <th>Name</th>
-                        <td v-if="isEditing"><input v-model="modifiedLesson.name"></td>
-                        <td v-else>{{lessonInModal.name}}</td>
-                    </tr>
-                    <tr>
-                        <th>length</th>
-                        <td v-if="isEditing"><input v-model="modifiedLesson.length"></td>
-                        <td v-else>{{lessonInModal.length}}</td>
-                    </tr>
+                        <tr>
+                        <th>lesson Start</th>
+                            <td v-if="isEditing"><input v-model="modifiedlesson.lessonStart"></td>
+                            <td v-else>{{lessonInModal.lessonStart}}</td>
+                        </tr>
+                        <tr>
+                            <th>Name</th>
+                            <td v-if="isEditing"><input v-model="modifiedlesson.name"></td>
+                            <td v-else>{{lessonInModal.name}}</td>
+                        </tr>
+                        <tr>
+                            <th>length</th>
+                            <td v-if="isEditing"><input v-model="modifiedlesson.length"></td>
+                            <td v-else>{{lessonInModal.length}}</td>
+                        </tr>
                 </table>
             </div>
             <div class="modal-footer">
-            <div class="container">
-            <div class="row">
                 <template v-if="isEditing">
-                    <div class="col me-auto">
-                        <button type="button" class="btn btn-danger" data-bs-target="#ConfirmationModal" data-bs-toggle="modal">Delete</button>
-                    </div>
-                    <div class="col-auto">
-                        <button type="button" class="btn btn-success mx-2" @click="saveModifiedLesson">Save</button>
-                        <button type="button" class="btn btn-secondary" @click="cancelEditing">Cancel</button>
-                    </div>
+                    <button type="button" class="btn btn-success" @click="saveModifiedlesson">Save</button>
+                    <button type="button" class="btn btn-secondary" @click="cancelEditing">Cancel</button>
                 </template>
-
                 <template v-else>
-                    <div class="col me-auto"></div>
-                    <div class="col-auto">
-                        <button type="button" class="btn btn-warning mx-2" @click="startEditing">Edit</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
+                    <button type="button" class="btn btn-warning" @click="startEditing">Edit</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </template>
-            </div>
-        </div>
             </div>
         </div>
     </div>
 </div>
-<confirmation-modal :target="'#lessonInfoModal'" @confirmed="deleteModifiedLesson"></confirmation-modal>
     `,
-    components: {
-        confirmationModal
-    },
-    emits: ["lessonUpdated", "LessonDeleted"],
+    emits: ["lessonUpdated"],
     props: {
         lessonInModal: {}
     },
     data() {
         return {
             isEditing: false,
-            modifiedLesson: {}
+            modifiedlesson: {}
         }
     },
     methods: {
         startEditing() {
-            this.modifiedLesson = { ...this.lessonInModal }
+            this.modifiedlesson = { ...this.lessonInModal }
             this.isEditing = true
         },
         cancelEditing() {
             this.isEditing = false
         },
-        async saveModifiedLesson() {
-            console.log("Saving:", this.modifiedLesson)
-            const rawResponse = await fetch(this.API_URL + "/Lessons/" + this.modifiedLesson.id, {
+        async saveModifiedlesson() {
+            console.log("Saving:", this.modifiedlesson)
+            const rawResponse = await fetch(this.API_URL + "/lessons/" + this.modifiedlesson.id, {
                 method: 'PUT',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(this.modifiedLesson)
+                body: JSON.stringify(this.modifiedlesson)
             });
             console.log(rawResponse);
-            this.$emit("lessonUpdated", this.modifiedLesson)
-            this.isEditing = false
-        },
-        async deleteModifiedLesson() {
-            console.log("Saving:", this.modifiedLesson)
-            const rawResponse = await fetch(this.API_URL + "/Lessons/" + this.modifiedLesson.id, {
-                method: 'DELETE',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(this.modifiedLesson)
-            });
-            console.log(rawResponse);
-            this.$emit("LessonDeleted", this.modifiedLesson)
+            this.$emit("lessonUpdated", this.modifiedlesson)
             this.isEditing = false
         }
     }
-}
+} 

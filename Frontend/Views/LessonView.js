@@ -19,7 +19,7 @@ export default {
     methods: {
         openModalLesson(lesson) {
             this.lessonInModal = lesson
-            let lessonInfoModal = new bootstrap.Modal(document.getElementById("LessonInfoModal"))
+            let lessonInfoModal = new bootstrap.Modal(document.getElementById("lessonInfoModal"))
             lessonInfoModal.show()
         },
         updateViewLesson(lesson) {

@@ -1,3 +1,4 @@
+import confirmationModal from "./ConfirmationModal.js"
 export default {
     /*html*/
     template: `
@@ -20,8 +21,8 @@ export default {
                     </tr>
                     <tr>
                         <th>studentCount</th>
-                        <td v-if="isEditing"><input v-model="modifiedgroup.group"></td>
-                        <td v-else>{{groupInModal.group}}</td>
+                        <td v-if="isEditing"><input v-model="modifiedgroup.studentCount"></td>
+                        <td v-else>{{groupInModal.studentCount}}</td>
                     </tr>
                 </table>
             </div>
