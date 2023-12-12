@@ -454,6 +454,20 @@ paths:
                                         name: some text
                                         studentCount: 14
                     description: Could not create group
+                '500':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/Groups'
+                            examples:
+                                Post Group:
+                                    value:
+                                        id: 44
+                                        name: some text
+                                        studentCount: 14
+                    description: Server Error
             summary: POST group
     '/Groups/{id}':
         get:
@@ -790,6 +804,83 @@ paths:
                 '500':
                     description: The Server Failed for unknown reason
             summary: POST Schools
+    /UserSchool:
+        get:
+            tags:
+                - UserSchool
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/UserSchool'
+                            examples:
+                                UserSchool EXMPLE:
+                                    value:
+                                        -
+                                            id: 20
+                                            Director: some text
+                                            UserId: 3
+                                            SchoolId: 96
+                                        -
+                                            id: 2
+                                            Director: some text
+                                            UserId: 70
+                                            SchoolId: 94
+                    description: GET all UserSchools
+                '404':
+                    description: User School
+                '500':
+                    description: Server error
+            summary: GET UserSchool
+        post:
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: array
+                            items: {}
+                        examples:
+                            PostExample:
+                                value:
+                                    id: 2
+                                    Director: some text
+                                    UserId: 70
+                                    SchoolId: 94
+            tags:
+                - UserSchool
+            responses:
+                '201':
+                    description: The UserSchool was created
+                '400':
+                    description: Couldnt  create userschool
+                '500':
+                    description: Server error
+            summary: POST UserSchool
+    '/UserSchool/{id}':
+        get:
+            parameters:
+                -
+                    examples:
+                        IDexmaple:
+                            value: '1'
+                    name: id
+                    schema:
+                        type: integer
+                    in: path
+                    required: true
+            responses:
+                '200':
+                    description: Success
+                '404':
+                    description: Could not get UserSchool
+                '500':
+                    description: Internal Server error
+            summary: GET UserSchool by id
+        put: {}
+        delete: {}
 components:
     schemas:
         Error:
@@ -873,3 +964,24 @@ components:
                 lessonStart: some text
                 name: some text
                 length: 1
+        UserSchool:
+            title: Root Type for UserSchools
+            description: ''
+            type: object
+            properties:
+                id:
+                    format: int32
+                    type: integer
+                Director:
+                    type: string
+                UserId:
+                    format: int32
+                    type: integer
+                SchoolId:
+                    format: int32
+                    type: integer
+            example:
+                id: 1
+                Director: Karpe
+                UserId: 1
+                SchoolId: 1
