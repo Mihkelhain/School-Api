@@ -804,10 +804,182 @@ paths:
                 '500':
                     description: The Server Failed for unknown reason
             summary: POST Schools
-    /UserSchool:
+    /GroupLessons:
         get:
             tags:
-                - UserSchool
+                - GroupLesson
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/GroupLesson'
+                            examples:
+                                Get GroupLessons:
+                                    value:
+                                        -
+                                            id: 1
+                                            LessonId: 67
+                                            GroupId: 75
+                                        -
+                                            id: 1
+                                            LessonId: 63
+                                            GroupId: 74
+                    description: Get GroupLessons
+                '404':
+                    description: GroupLesson not found
+                '500':
+                    description: Server Error
+            summary: Get GroupLessons
+        post:
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/GroupLesson'
+                        examples:
+                            GroupLesson:
+                                value:
+                                    LessonId: 12
+                                    GroupId: 46
+            tags:
+                - GroupLesson
+            responses:
+                '201':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/GroupLesson'
+                            examples:
+                                Post GroupLesson:
+                                    value: |4
+
+                                            {
+                                                "id": 56,
+                                                "LessonId": 82,
+                                                "GroupId": 4
+                                            }
+                    description: GroupLesson Created
+                '400':
+                    description: Could not Create GroupLesson
+                '500':
+                    description: Server error
+            summary: Post GroupLesson
+    '/GroupLessons/{id}':
+        get:
+            tags:
+                - GroupLesson
+            parameters:
+                -
+                    examples:
+                        Get GroupLesson by id:
+                            value: '1'
+                    name: id
+                    description: get GroupLessons by id
+                    schema:
+                        type: integer
+                    in: path
+                    required: true
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/GroupLesson'
+                            examples:
+                                Get GroupLessons id:
+                                    value:
+                                        -
+                                            id: 43
+                                            LessonId: 28
+                                            GroupId: 82
+                                        -
+                                            id: 77
+                                            LessonId: 41
+                                            GroupId: 2
+                    description: |
+                        Success
+                '400':
+                    description: Could not get GroupLesson
+                '404':
+                    description: GroupLesson not found
+                '500':
+                    description: Server Error
+            summary: get GroupLesson
+        put:
+            tags:
+                - GroupLesson
+            parameters:
+                -
+                    examples:
+                        Put GroupLesson id:
+                            value: '2'
+                    name: id
+                    description: Put GroupLesson id
+                    schema:
+                        type: integer
+                    in: path
+                    required: true
+            responses:
+                '201':
+                    description: Created Succsessfuly
+                '400':
+                    description: Could not put id
+                '500':
+                    description: Server Error
+            summary: put GroupLessons
+        delete:
+            tags:
+                - GroupLesson
+            parameters:
+                -
+                    examples:
+                        delete GroupLesson id:
+                            value: '1'
+                    name: id
+                    description: |
+                        Delete by GroupLesson id
+                    schema:
+                        type: integer
+                    in: path
+                    required: true
+            responses:
+                '204':
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/GroupLesson'
+                            examples:
+                                Delete GroupLesson:
+                                    value:
+                                        -
+                                            id: 76
+                                            LessonId: 54
+                                            GroupId: 28
+                                        -
+                                            id: 27
+                                            LessonId: 97
+                                            GroupId: 30
+                    description: Deleted Succsessfuly
+                '400':
+                    description: Could not get id
+                '404':
+                    description: Could not find id
+                '500':
+                    description: Server Error
+            summary: Delete GroupLessons
+    /UserSchools:
+        get:
+            tags:
+                - UserSchools
             responses:
                 '200':
                     content:
@@ -850,7 +1022,7 @@ paths:
                                     UserId: 70
                                     SchoolId: 94
             tags:
-                - UserSchool
+                - UserSchools
             responses:
                 '201':
                     description: The UserSchool was created
@@ -859,8 +1031,10 @@ paths:
                 '500':
                     description: Server error
             summary: POST UserSchool
-    '/UserSchool/{id}':
+    '/UserSchools/{id}':
         get:
+            tags:
+                - UserSchools
             parameters:
                 -
                     examples:
@@ -879,8 +1053,43 @@ paths:
                 '500':
                     description: Internal Server error
             summary: GET UserSchool by id
-        put: {}
-        delete: {}
+        put:
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: array
+                            items: {}
+                        examples:
+                            example:
+                                value:
+                                    - {}
+                                    - {}
+                required: true
+            tags:
+                - UserSchools
+            parameters:
+                -
+                    examples:
+                        PutUSexmple:
+                            value: '1'
+                    name: id
+                    schema:
+                        type: integer
+                    in: path
+                    required: true
+            responses:
+                '202':
+                    description: PUT UserSchool
+                '404':
+                    description: |
+                        Failed to PUT userSchool
+                '500':
+                    description: Serveri no worky porky
+            summary: PUT UserSchool
+        delete:
+            tags:
+                - UserSchools
 components:
     schemas:
         Error:
@@ -985,3 +1194,21 @@ components:
                 Director: Karpe
                 UserId: 1
                 SchoolId: 1
+        GroupLesson:
+            title: Root Type for GroupLesson
+            description: ''
+            type: object
+            properties:
+                id:
+                    format: int32
+                    type: integer
+                LessonId:
+                    format: int32
+                    type: integer
+                GroupId:
+                    format: int32
+                    type: integer
+            example:
+                id: 1
+                LessonId: 1
+                GroupId: 1

@@ -2,8 +2,8 @@ export default {
   /*html*/
   template: `
     <nav class="navbar navbar-expand-lg bg-danger navbar-dark">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
+      <div class="container-fluid"> 
+        <a class="navbar-brand" href="#">School-API Fun :3</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -21,9 +21,7 @@ export default {
             <li class="nav-item">
               <router-link class="nav-link" to="/Schools">Schools</router-link>
             </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-            </li>
+            
           </ul>
           <form class="d-flex" role="search">
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
