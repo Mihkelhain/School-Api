@@ -5,13 +5,14 @@ import schoolForm from "../components/School/SchoolForm.js"
 export default {
     /*html*/
     template: `
-    <button class="btn btn-secondary" @click="newSchool">New School</button>
+    
     <schools-list :key="update" @showModal="openModalSchool"></schools-list>
     <school-info-modal @schoolUpdated="updateViewSchool" :schoolInModal="schoolInModal"></school-info-modal>
     <new-object-modal id="newSchoolModal" @save="saveNewSchool">
         <school-form v-model:name="schoolInModal.name" v-model:director="schoolInModal.director"></school-form>
         <div class="alert alert-danger" role="alert" v-show="error">{{error}}</div>
     </new-object-modal>
+    <button class="btn btn-info" @click="newSchool">New School</button>
     `,
     components: {
         schoolsList,

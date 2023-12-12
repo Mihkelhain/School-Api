@@ -5,13 +5,14 @@ import userForm from "../components/Users/UserForm.js"
 export default {
     /*html*/
     template: `
-    <button class="btn btn-secondary" @click="newUser">New User</button>
+    
     <users-list :key="update" @showModal="openModalUser"></users-list>
     <user-info-modal @userUpdated="updateViewUser" :userInModal="userInModal"></user-info-modal>
     <new-object-modal id="newUserModal" @save="saveNewUser">
         <user-form v-model:name="userInModal.name" v-model:group="userInModal.group" v-model:password="userInModal.password" ></user-form>
         <div class="alert alert-danger" role="alert" v-show="error">{{error}}</div>
     </new-object-modal>
+    <button class="btn btn-info" @click="newUser">New User</button>
     `,
     components: {
         usersList,

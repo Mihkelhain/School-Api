@@ -5,13 +5,14 @@ import groupForm from "../components/Group/GroupForm.js"
 export default {
     /*html*/
     template: `
-    <button class="btn btn-secondary" @click="newGroup">New Group</button>
+    
     <group-list :key="update" @showModal="openModalGroup"></group-list>
     <group-info-modal @groupUpdated="updateViewGroup" :groupInModal="groupInModal"></group-info-modal>
     <new-object-modal id="newGroupModal" @save="saveNewGroup">
         <group-form v-model:groupStart="groupInModal.groupStart" v-model:name="groupInModal.name" v-model:studentCount="groupInModal.studentCount" ></group-form>
         <div class="alert alert-danger" role="alert" v-show="error">{{error}}</div>
     </new-object-modal>
+    <button class="btn btn-info" @click="newGroup">New Group</button>
     `,
     components: {
         groupList,

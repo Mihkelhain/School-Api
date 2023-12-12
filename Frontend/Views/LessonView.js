@@ -5,13 +5,14 @@ import lessonForm from "../components/Lesson/LessonForm.js"
 export default {
     /*html*/
     template: `
-    <button class="btn btn-secondary" @click="newLesson">New Lesson</button>
+    
     <lesson-list :key="update" @showModal="openModalLesson"></lesson-list>
     <lesson-info-modal @lessonUpdated="updateViewLesson" :lessonInModal="lessonInModal"></lesson-info-modal>
     <new-object-modal id="newLessonModal" @save="saveNewLesson">
         <lesson-form v-model:lessonStart="lessonInModal.lessonStart" v-model:name="lessonInModal.name" v-model:length="lessonInModal.length" ></lesson-form>
         <div class="alert alert-danger" role="alert" v-show="error">{{error}}</div>
     </new-object-modal>
+    <button class="btn btn-info" @click="newLesson">New Lesson</button>
     `,
     components: {
         lessonList,
